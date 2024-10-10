@@ -2,7 +2,9 @@ package com.api.rest.canvas2.Section.domain;
 
 import com.api.rest.canvas2.Announcement.domain.Announcement;
 import com.api.rest.canvas2.Assignment.domain.Assignment;
+import com.api.rest.canvas2.Assistant.domain.Assistant;
 import com.api.rest.canvas2.Course.domain.Course;
+import com.api.rest.canvas2.Group.domain.Group;
 import com.api.rest.canvas2.Material.domain.Material;
 import com.api.rest.canvas2.Quiz.domain.Quiz;
 import com.api.rest.canvas2.Users.domain.User;
@@ -26,27 +28,33 @@ public class Section {
     private Long id;
 
     private String section;
-
     private String type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToMany
-    private List<User> user;
+    @ManyToMany(mappedBy = "sections")
+    private List<User> users;
 
-    @OneToMany
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Assistant> assistants;
+
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Assignment> assignments;
 
-    @OneToMany
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Quiz> quizzes;
 
-    @OneToMany
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Material> materials;
 
-    @OneToMany
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Announcement> announcements;
 
-    @OneToMany
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ZoomMeeting> zoomMeetings;
+
+    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Group> groups;
 }

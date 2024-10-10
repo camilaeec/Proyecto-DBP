@@ -18,9 +18,9 @@ public class Answer {
     private Long id;
 
     private String content;
-
     private Boolean isCorrect;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "question_id")
     private Question question;
 }

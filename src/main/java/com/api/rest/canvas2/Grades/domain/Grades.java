@@ -1,6 +1,7 @@
 package com.api.rest.canvas2.Grades.domain;
 
 import com.api.rest.canvas2.Assignment.domain.Assignment;
+import com.api.rest.canvas2.Group.domain.Group;
 import com.api.rest.canvas2.Quiz.domain.Quiz;
 import com.api.rest.canvas2.Users.domain.User;
 import jakarta.persistence.*;
@@ -22,15 +23,21 @@ public class Grades {
     private Long id;
 
     private Integer grade;
+    private String feedback;
 
-    private String feedBack;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assignment_id")
     private Assignment assignment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quiz_id")
     private Quiz quiz;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_id")
+    private Group group;
 }

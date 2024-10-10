@@ -21,14 +21,13 @@ public class Question {
     private Long id;
 
     private String content;
-
     private Type type;
-
     private Boolean isMultipleChoice;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "quiz_id")
     private Quiz quiz;
 
-    @OneToMany
+    @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Answer> answers;
 }

@@ -21,14 +21,12 @@ public class Course {
     private Long id;
 
     private String name;
-
     private String description;
-
     private Type type;
 
-    @OneToMany
+    @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Section> sections;
 
-    @ManyToOne
-    private User user;
+    @ManyToMany(mappedBy = "courses")
+    private List<User> users;
 }

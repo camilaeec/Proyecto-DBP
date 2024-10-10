@@ -22,15 +22,17 @@ public class ZoomMeeting {
     private Long id;
 
     private String zoomLink;
-
     private LocalDateTime scheduledDate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "section_id")
     private Section section;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "announcement_id")
     private Announcement announcement;
 }
