@@ -1,0 +1,2 @@
+El apartado de Chat se tendrá implementada para la segunda entrega
+:D
