@@ -1,9 +1,8 @@
 package com.api.rest.canvas2.Announcement.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.api.rest.canvas2.Section.domain.Section;
+import com.api.rest.canvas2.Users.domain.User;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,4 +22,10 @@ public class Announcement {
     private String title;
     private String content;
     private LocalDate datePosted;
+
+    @ManyToOne
+    private Section section;
+
+    @ManyToOne
+    private User user;
 }

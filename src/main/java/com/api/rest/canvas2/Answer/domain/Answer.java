@@ -1,6 +1,6 @@
-package com.api.rest.canvas2.Material.domain;
+package com.api.rest.canvas2.Answer.domain;
 
-import com.api.rest.canvas2.Section.domain.Section;
+import com.api.rest.canvas2.Question.domain.Question;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,14 +12,15 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-public class Material {
+public class Answer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
-    private String description;
-    private String fileUrl;
+
+    private String content;
+
+    private Boolean isCorrect;
 
     @ManyToOne
-    private Section section;
+    private Question question;
 }

@@ -1,13 +1,19 @@
 package com.api.rest.canvas2.Section.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.api.rest.canvas2.Announcement.domain.Announcement;
+import com.api.rest.canvas2.Assignment.domain.Assignment;
+import com.api.rest.canvas2.Course.domain.Course;
+import com.api.rest.canvas2.Material.domain.Material;
+import com.api.rest.canvas2.Quiz.domain.Quiz;
+import com.api.rest.canvas2.Users.domain.User;
+import com.api.rest.canvas2.ZoomMeeting.domain.ZoomMeeting;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,5 +27,26 @@ public class Section {
 
     private String section;
 
+    private String type;
 
+    @ManyToOne
+    private Course course;
+
+    @ManyToMany
+    private List<User> user;
+
+    @OneToMany
+    private List<Assignment> assignments;
+
+    @OneToMany
+    private List<Quiz> quizzes;
+
+    @OneToMany
+    private List<Material> materials;
+
+    @OneToMany
+    private List<Announcement> announcements;
+
+    @OneToMany
+    private List<ZoomMeeting> zoomMeetings;
 }

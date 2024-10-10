@@ -1,13 +1,14 @@
 package com.api.rest.canvas2.Course.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import com.api.rest.canvas2.Section.domain.Section;
+import com.api.rest.canvas2.Users.domain.User;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -25,4 +26,9 @@ public class Course {
 
     private Type type;
 
+    @OneToMany
+    private List<Section> sections;
+
+    @ManyToOne
+    private User user;
 }
