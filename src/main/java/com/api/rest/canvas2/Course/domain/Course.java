@@ -1,4 +1,4 @@
-package com.api.rest.canvas2.Users.domain;
+package com.api.rest.canvas2.Course.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,28 +9,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
-
+@NoArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
 @Entity
-public class UserUTEC {
+public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+    private Long id;
 
     private String name;
 
-    private String lastname;
+    private String description;
 
-    private String password;
-
-    private Rol rol;
-
-    private String email;
-
-    private Date birthday;
+    private Type type;
 
 }

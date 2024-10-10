@@ -1,4 +1,4 @@
-package com.api.rest.canvas2.Material.domain;
+package com.api.rest.canvas2.Group.domain;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,11 +14,9 @@ import lombok.Setter;
 @Setter
 @Getter
 @Entity
-public class Material {
+public class Group {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    private String title;
-    private String description;
-    private String fileUrl;
+    private String name;
 }
