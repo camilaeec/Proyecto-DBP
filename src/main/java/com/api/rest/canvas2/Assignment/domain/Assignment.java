@@ -32,7 +32,12 @@ public class Assignment {
     @JoinColumn(name = "section_id")
     private Section section;
 
-    @ManyToMany(mappedBy = "assignments")
+    @ManyToMany
+    @JoinTable(
+            name = "assignment_user",
+            joinColumns = @JoinColumn(name = "assignment_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> users;
 
     @OneToMany(mappedBy = "assignment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -45,4 +50,5 @@ public class Assignment {
             inverseJoinColumns = @JoinColumn(name = "group_id")
     )
     private List<Group> groups;
+
 }

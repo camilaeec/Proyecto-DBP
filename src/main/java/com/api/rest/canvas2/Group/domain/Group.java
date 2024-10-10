@@ -24,16 +24,21 @@ public class Group {
 
     private String name;
 
-    @ManyToMany(mappedBy = "groups")
+    @ManyToMany
+    @JoinTable(
+            name = "group_user",
+            joinColumns = @JoinColumn(name = "group_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> users;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id")
     private Section section;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "assignment_id")
-    private Assignment assignment;
+    @ManyToMany(mappedBy = "groups")
+    private List<Assignment> assignments;
+
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Grades> grades;

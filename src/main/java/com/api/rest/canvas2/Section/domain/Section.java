@@ -34,8 +34,14 @@ public class Section {
     @JoinColumn(name = "course_id")
     private Course course;
 
-    @ManyToMany(mappedBy = "sections")
+    @ManyToMany
+    @JoinTable(
+            name = "section_user",
+            joinColumns = @JoinColumn(name = "section_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
     private List<User> users;
+
 
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Assistant> assistants;

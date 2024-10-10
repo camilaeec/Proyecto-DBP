@@ -31,20 +31,10 @@ public class User {
     private String password;
     private String profilePicture;
 
-    @ManyToMany
-    @JoinTable(
-            name = "section_user",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "section_id")
-    )
+    @ManyToMany(mappedBy = "users")
     private List<Section> sections;
 
-    @ManyToMany
-    @JoinTable(
-            name = "assignment_user",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "assignment_id")
-    )
+    @ManyToMany(mappedBy = "users")
     private List<Assignment> assignments;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -53,19 +43,9 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ZoomMeeting> zoomMeetings;
 
-    @ManyToMany
-    @JoinTable(
-            name = "group_user",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "group_id")
-    )
+    @ManyToMany(mappedBy = "users")
     private List<Group> groups;
 
-    @ManyToMany
-    @JoinTable(
-            name = "course_user",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "course_id")
-    )
+    @ManyToMany(mappedBy = "users") // mappedBy indica que la tabla de unión se maneja en Course
     private List<Course> courses;
 }
