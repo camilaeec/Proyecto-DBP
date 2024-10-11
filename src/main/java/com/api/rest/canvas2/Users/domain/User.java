@@ -3,6 +3,7 @@ package com.api.rest.canvas2.Users.domain;
 import com.api.rest.canvas2.Announcement.domain.Announcement;
 import com.api.rest.canvas2.Assignment.domain.Assignment;
 import com.api.rest.canvas2.Course.domain.Course;
+import com.api.rest.canvas2.Grades.domain.Grades;
 import com.api.rest.canvas2.Group.domain.Group;
 import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.ZoomMeeting.domain.ZoomMeeting;
@@ -48,4 +49,7 @@ public class User {
 
     @ManyToMany(mappedBy = "users") // mappedBy indica que la tabla de unión se maneja en Course
     private List<Course> courses;
+
+    @OneToMany(mappedBy = "user")
+    private List<Grades> grades;
 }

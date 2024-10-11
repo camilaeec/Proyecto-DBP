@@ -1,6 +1,7 @@
 package com.api.rest.canvas2.Grades.domain;
 
 import com.api.rest.canvas2.Assignment.domain.Assignment;
+import com.api.rest.canvas2.Course.domain.Course;
 import com.api.rest.canvas2.Group.domain.Group;
 import com.api.rest.canvas2.Quiz.domain.Quiz;
 import com.api.rest.canvas2.Users.domain.User;
@@ -40,4 +41,7 @@ public class Grades {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "group_id")
     private Group group;
+
+    @ManyToOne
+    private Course course;
 }
