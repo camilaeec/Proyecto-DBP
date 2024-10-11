@@ -18,7 +18,5 @@ public class UserResponseDto {
 
     private String profilePicture;
 
-    private List<String> courses;
-
     private List<String> grades;
 }

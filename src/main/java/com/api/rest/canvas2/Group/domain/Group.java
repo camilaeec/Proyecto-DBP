@@ -1,7 +1,7 @@
 package com.api.rest.canvas2.Group.domain;
 
 import com.api.rest.canvas2.Assignment.domain.Assignment;
-import com.api.rest.canvas2.Grades.domain.Grades;
+import com.api.rest.canvas2.Grades.domain.Grade;
 import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.Users.domain.User;
 import jakarta.persistence.*;
@@ -41,5 +41,5 @@ public class Group {
 
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Grades> grades;
+    private List<Grade> grades;
 }

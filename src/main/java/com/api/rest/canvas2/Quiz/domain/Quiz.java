@@ -1,6 +1,6 @@
 package com.api.rest.canvas2.Quiz.domain;
 
-import com.api.rest.canvas2.Grades.domain.Grades;
+import com.api.rest.canvas2.Grades.domain.Grade;
 import com.api.rest.canvas2.Question.domain.Question;
 import com.api.rest.canvas2.Section.domain.Section;
 import jakarta.persistence.*;
@@ -25,6 +25,7 @@ public class Quiz {
     private String title;
     private String description;
     private LocalDate dueDate;
+    private Integer duration;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id")
@@ -34,5 +35,5 @@ public class Quiz {
     private List<Question> questions;
 
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Grades> grades;
+    private List<Grade> grades;
 }

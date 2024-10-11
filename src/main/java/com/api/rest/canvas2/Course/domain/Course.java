@@ -1,8 +1,6 @@
 package com.api.rest.canvas2.Course.domain;
 
-import com.api.rest.canvas2.Grades.domain.Grades;
 import com.api.rest.canvas2.Section.domain.Section;
-import com.api.rest.canvas2.Users.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

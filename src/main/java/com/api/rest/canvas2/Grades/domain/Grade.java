@@ -1,7 +1,6 @@
 package com.api.rest.canvas2.Grades.domain;
 
 import com.api.rest.canvas2.Assignment.domain.Assignment;
-import com.api.rest.canvas2.Course.domain.Course;
 import com.api.rest.canvas2.Group.domain.Group;
 import com.api.rest.canvas2.Quiz.domain.Quiz;
 import com.api.rest.canvas2.Users.domain.User;
@@ -11,14 +10,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Setter
 @Getter
 @Entity
-public class Grades {
+public class Grade {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -42,6 +39,4 @@ public class Grades {
     @JoinColumn(name = "group_id")
     private Group group;
 
-    @ManyToOne
-    private Course course;
 }

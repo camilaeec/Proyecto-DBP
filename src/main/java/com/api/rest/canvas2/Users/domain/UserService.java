@@ -1,8 +1,12 @@
 package com.api.rest.canvas2.Users.domain;
 
+import com.api.rest.canvas2.Assignment.infrastructure.AssignmentRepository;
 import com.api.rest.canvas2.Course.domain.Course;
 import com.api.rest.canvas2.Course.infrastructure.CourseRepository;
-import com.api.rest.canvas2.Grades.domain.Grades;
+import com.api.rest.canvas2.Grades.domain.Grade;
+import com.api.rest.canvas2.Grades.dto.GradeResponseDto;
+import com.api.rest.canvas2.Grades.infrastructure.GradeRepository;
+import com.api.rest.canvas2.Quiz.infrastructure.QuizRepository;
 import com.api.rest.canvas2.Users.dto.UserRequestDto;
 import com.api.rest.canvas2.Users.dto.UserResponseDto;
 import com.api.rest.canvas2.Users.infrastructure.UserRepository;
@@ -16,13 +20,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+
     private final UserRepository userRepository;
-    private final CourseRepository courseRepository;
+    private final GradeRepository gradeRepository;
+    private final AssignmentRepository assignmentRepository;
+    private final QuizRepository quizRepository;
     private final ModelMapper modelMapper;
 
-    public UserService(UserRepository userRepository, CourseRepository courseRepository, ModelMapper modelMapper) {
+    public UserService(UserRepository userRepository, GradeRepository gradeRepository,
+                       AssignmentRepository assignmentRepository, QuizRepository quizRepository,
+                       ModelMapper modelMapper) {
         this.userRepository = userRepository;
-        this.courseRepository = courseRepository;
+        this.gradeRepository = gradeRepository;
+        this.assignmentRepository = assignmentRepository;
+        this.quizRepository = quizRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -53,7 +64,6 @@ public class UserService {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
 
-
         user.setName(userRequestDto.getName());
         user.setLastname(userRequestDto.getLastname());
         user.setEmail(userRequestDto.getEmail());
@@ -63,35 +73,29 @@ public class UserService {
         return mapToResponseDto(updatedUser);
     }
 
-
-    private UserResponseDto mapToResponseDto(User user) {
-        UserResponseDto userResponseDto = modelMapper.map(user, UserResponseDto.class);
-        if (user.getCourses() != null) {
-            List<String> courseNames = user.getCourses().stream()
-                    .map(Course::getName)
-                    .collect(Collectors.toList());
-            userResponseDto.setCourses(courseNames);
-        }else {
-            userResponseDto.setCourses(Collections.emptyList());
-        }
-        return userResponseDto;
-    }
-
-    public List<GradeResponseDto> getGradesByUserAndCourse(Long userId, Long courseId) {
+    public List<GradeResponseDto> getGradesByUserAndAssignmentOrQuiz(Long userId, Long assignmentId, Long quizId) {
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        Course course = courseRepository.findById(courseId)
-                .orElseThrow(() -> new ResourceNotFoundException("Course not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
-        // Filtrar las calificaciones del usuario que pertenecen a ese curso
-        List<Grades> grades = user.getGrades().stream()
-                .filter(grade -> grade.getCourse().getId().equals(courseId))
-                .collect(Collectors.toList());
+        List<Grade> grades;
+        if (assignmentId != null) {
+            grades = gradeRepository.findByUserIdAndAssignmentId(userId, assignmentId);
+        } else if (quizId != null) {
+            grades = gradeRepository.findByUserIdAndQuizId(userId, quizId);
+        } else {
+            throw new IllegalArgumentException("Either assignmentId or quizId must be provided");
+        }
 
         return grades.stream().map(this::mapToGradeDto).collect(Collectors.toList());
     }
 
-    private GradeResponseDto mapToGradeDto(Grades grade) {
+    private UserResponseDto mapToResponseDto(User user) {
+        UserResponseDto userResponseDto = modelMapper.map(user, UserResponseDto.class);
+        return userResponseDto;
+    }
+
+    private GradeResponseDto mapToGradeDto(Grade grade) {
         return modelMapper.map(grade, GradeResponseDto.class);
     }
 }
+

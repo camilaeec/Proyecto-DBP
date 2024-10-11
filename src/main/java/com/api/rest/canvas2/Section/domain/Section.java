@@ -26,7 +26,7 @@ public class Section {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String section;
+    private String name;
     private String type;
 
     @ManyToOne(fetch = FetchType.LAZY)
