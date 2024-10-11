@@ -96,7 +96,7 @@ public class GroupService {
 
     private GroupResponseDto mapToResponseDto(Group group) {
         GroupResponseDto responseDto = modelMapper.map(group, GroupResponseDto.class);
-        responseDto.setSectionName(group.getSection().getName());
+        responseDto.setSectionName(group.getSection().getType());
 
         List<String> memberNames = group.getUsers().stream()
                 .map(User::getName)

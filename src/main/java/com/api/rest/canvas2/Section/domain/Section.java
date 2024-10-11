@@ -16,6 +16,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -27,10 +28,6 @@ public class Section {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-
-    @NotNull
-    @Column(unique = true)
-    private String name;
 
     @NotNull
     private String type;
@@ -45,7 +42,7 @@ public class Section {
             joinColumns = @JoinColumn(name = "section_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private List<User> users;
+    private List<User> users = new ArrayList<>();
 
 
     @ManyToMany(mappedBy = "sections")

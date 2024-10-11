@@ -83,7 +83,7 @@ public class AnnouncementService {
     private AnnouncementResponseDto mapToResponseDto(Announcement announcement) {
         AnnouncementResponseDto responseDto = modelMapper.map(announcement, AnnouncementResponseDto.class);
         responseDto.setUserName(announcement.getUser().getName());
-        responseDto.setSectionName(announcement.getSection().getName());
+        responseDto.setSectionName(announcement.getSection().getType());
         return responseDto;
     }
 }

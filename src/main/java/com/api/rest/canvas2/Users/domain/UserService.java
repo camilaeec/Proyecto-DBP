@@ -78,7 +78,8 @@ public class UserService {
         return mapToResponseDto(updatedUser);
     }
 
-    public List<GradeResponseDto> getGradesByUserAndAssignmentOrQuiz(Long userId, Long assignmentId, Long quizId) {
+    /*
+        public List<GradeResponseDto> getGradesByUserAndAssignmentOrQuiz(Long userId, Long assignmentId, Long quizId) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
 
@@ -93,6 +94,7 @@ public class UserService {
 
         return grades.stream().map(this::mapToGradeDto).collect(Collectors.toList());
     }
+     */
 
     private UserResponseDto mapToResponseDto(User user) {
         return modelMapper.map(user, UserResponseDto.class);

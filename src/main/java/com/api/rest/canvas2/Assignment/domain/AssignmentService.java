@@ -90,7 +90,7 @@ public class AssignmentService {
 
     private AssignmentResponseDto mapToResponseDto(Assignment assignment) {
         AssignmentResponseDto assignmentResponseDto = modelMapper.map(assignment, AssignmentResponseDto.class);
-        assignmentResponseDto.setSectionName(assignment.getSection().getName());
+        assignmentResponseDto.setSectionName(assignment.getSection().getType());
         assignmentResponseDto.setAssignedUsers(
                 assignment.getAssignedUsers().stream().map(User::getName).collect(Collectors.toList()));
         return assignmentResponseDto;

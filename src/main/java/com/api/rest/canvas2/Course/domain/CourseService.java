@@ -3,6 +3,7 @@ package com.api.rest.canvas2.Course.domain;
 import com.api.rest.canvas2.Course.dto.CourseRequestDto;
 import com.api.rest.canvas2.Course.dto.CourseResponseDto;
 import com.api.rest.canvas2.Course.infrastructure.CourseRepository;
+import com.api.rest.canvas2.Section.dto.SectionDto;
 import com.api.rest.canvas2.Users.domain.User;
 import com.api.rest.canvas2.Users.dto.UserResponseDto;
 import com.api.rest.canvas2.Users.infrastructure.UserRepository;
@@ -42,20 +43,19 @@ public class CourseService {
     public CourseResponseDto getCourseById(Long id) {
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
-        return modelMapper.map(course, CourseResponseDto.class);
+        return mapCourseToDto(course);
     }
 
     public CourseResponseDto getCourseByName(String name) {
         Course course = courseRepository.findByName(name)
                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with name: " + name));
-        return modelMapper.map(course, CourseResponseDto.class);
+        return mapCourseToDto(course);
     }
 
     public CourseResponseDto updateCourse(Long id, CourseRequestDto courseRequestDto) {
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
 
-        // Actualizar solo los campos relevantes
         course.setName(courseRequestDto.getName());
         course.setDescription(courseRequestDto.getDescription());
 
@@ -84,4 +84,25 @@ public class CourseService {
                 .collect(Collectors.toList());
     }
 
+    private CourseResponseDto mapCourseToDto(Course course) {
+        CourseResponseDto courseResponseDto = modelMapper.map(course, CourseResponseDto.class);
+
+        List<SectionDto> sectionDtos = course.getSections().stream()
+                .map(section -> {
+                    SectionDto sectionDto = modelMapper.map(section, SectionDto.class);
+
+                    List<UserResponseDto> userDtos = section.getUsers().stream()
+                            .map(user -> modelMapper.map(user, UserResponseDto.class))
+                            .collect(Collectors.toList());
+
+                    sectionDto.setUsers(userDtos);
+
+                    return sectionDto;
+                })
+                .collect(Collectors.toList());
+
+        courseResponseDto.setSections(sectionDtos);
+
+        return courseResponseDto;
+    }
 }

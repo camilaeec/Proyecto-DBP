@@ -68,7 +68,6 @@ public class SectionService {
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Section not found with id: " + sectionId));
 
-        section.setName(sectionRequestDto.getName());
         section.setType(sectionRequestDto.getType());
 
         Section updatedSection = sectionRepository.save(section);

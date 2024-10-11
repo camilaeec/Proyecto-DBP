@@ -79,7 +79,7 @@ public class MaterialService {
     private MaterialResponseDto mapToResponseDto(Material material) {
         MaterialResponseDto materialResponseDto = modelMapper.map(material, MaterialResponseDto.class);
         materialResponseDto.setUserName(material.getUser().getName());
-        materialResponseDto.setSectionName(material.getSection().getName());
+        materialResponseDto.setSectionName(material.getSection().getType());
         return materialResponseDto;
     }
 }

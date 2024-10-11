@@ -83,7 +83,7 @@ public class AssistantService {
         AssistantResponseDto assistantResponseDto = modelMapper.map(assistant, AssistantResponseDto.class);
         assistantResponseDto.setUserName(assistant.getUser().getName());
         List<String> sectionNames = assistant.getSections().stream()
-                .map(Section::getName)
+                .map(Section::getType)
                 .collect(Collectors.toList());
         assistantResponseDto.setSectionNames(sectionNames);
         return assistantResponseDto;

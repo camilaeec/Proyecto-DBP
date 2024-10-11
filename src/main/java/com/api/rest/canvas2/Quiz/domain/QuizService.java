@@ -113,7 +113,7 @@ public class QuizService {
 
     private QuizResponseDto mapToQuizResponseDto(Quiz quiz) {
         QuizResponseDto quizResponseDto = modelMapper.map(quiz, QuizResponseDto.class);
-        quizResponseDto.setSectionName(quiz.getSection().getName());
+        quizResponseDto.setSectionName(quiz.getSection().getType());
         return quizResponseDto;
     }
 }

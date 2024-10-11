@@ -1,5 +1,6 @@
 package com.api.rest.canvas2.Course.dto;
 
+import com.api.rest.canvas2.Section.dto.SectionDto;
 import lombok.Data;
 
 import java.util.List;
@@ -11,5 +12,5 @@ public class CourseResponseDto {
     private String name;
     private String description;
 
-    private List<String> users;
+    private List<SectionDto> sections;
 }

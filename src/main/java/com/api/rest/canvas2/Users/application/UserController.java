@@ -56,7 +56,8 @@ public class UserController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{userId}/grades")
+    /*
+        @GetMapping("/{userId}/grades")
     public ResponseEntity<List<GradeResponseDto>> getGradesByUserAndAssignmentOrQuiz(
             @PathVariable Long userId,
             @RequestParam(required = false) Long assignmentId,
@@ -64,4 +65,5 @@ public class UserController {
         List<GradeResponseDto> grades = userService.getGradesByUserAndAssignmentOrQuiz(userId, assignmentId, quizId);
         return ResponseEntity.ok(grades);
     }
+     */
 }
