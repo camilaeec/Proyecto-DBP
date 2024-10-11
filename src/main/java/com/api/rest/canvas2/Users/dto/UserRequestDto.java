@@ -11,4 +11,8 @@ public class UserRequestDto {
     private String email;
 
     private String profilePicture;
+
+    private String password;
+
+    private String role;
 }

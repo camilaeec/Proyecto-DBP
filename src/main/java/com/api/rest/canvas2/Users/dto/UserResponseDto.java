@@ -1,5 +1,6 @@
 package com.api.rest.canvas2.Users.dto;
 
+import com.api.rest.canvas2.Users.domain.Role;
 import lombok.Data;
 
 import java.util.List;
@@ -14,9 +15,8 @@ public class UserResponseDto {
 
     private String email;
 
-    private String role;
+    private Role role;
 
     private String profilePicture;
 
-    private List<String> grades;
 }
