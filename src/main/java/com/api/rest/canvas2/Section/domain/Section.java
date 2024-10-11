@@ -10,6 +10,7 @@ import com.api.rest.canvas2.Quiz.domain.Quiz;
 import com.api.rest.canvas2.Users.domain.User;
 import com.api.rest.canvas2.ZoomMeeting.domain.ZoomMeeting;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,9 +25,14 @@ import java.util.List;
 @Entity
 public class Section {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
+
+    @NotNull
+    @Column(unique = true)
     private String name;
+
+    @NotNull
     private String type;
 
     @ManyToOne(fetch = FetchType.LAZY)

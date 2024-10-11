@@ -3,6 +3,7 @@ package com.api.rest.canvas2.Assistant.domain;
 import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.Users.domain.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,9 +18,10 @@ import java.util.List;
 @Entity
 public class Assistant {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private Boolean isExternal;
 
     @OneToOne(fetch = FetchType.LAZY)

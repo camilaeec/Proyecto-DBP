@@ -4,6 +4,7 @@ import com.api.rest.canvas2.Grades.dto.GradeResponseDto;
 import com.api.rest.canvas2.Users.domain.UserService;
 import com.api.rest.canvas2.Users.dto.UserRequestDto;
 import com.api.rest.canvas2.Users.dto.UserResponseDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,12 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+    @PostMapping
+    public ResponseEntity<UserResponseDto> createUser(@RequestBody UserRequestDto userRequestDto) {
+        UserResponseDto createdUser = userService.createUser(userRequestDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdUser);
     }
 
     @GetMapping("/{id}")

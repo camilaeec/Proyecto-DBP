@@ -5,6 +5,7 @@ import com.api.rest.canvas2.Grades.domain.Grade;
 import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.Users.domain.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,8 @@ public class Group {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
+    @Column(unique = true)
     private String name;
 
     @ManyToMany

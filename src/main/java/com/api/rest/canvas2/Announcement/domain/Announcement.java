@@ -3,6 +3,8 @@ package com.api.rest.canvas2.Announcement.domain;
 import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.Users.domain.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,8 +23,13 @@ public class Announcement {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String title;
+
+    @NotNull
     private String content;
+
+    @NotNull
     private LocalDateTime datePosted;
 
     @ManyToOne(fetch = FetchType.LAZY)

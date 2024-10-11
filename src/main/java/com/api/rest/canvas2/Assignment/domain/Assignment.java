@@ -5,6 +5,8 @@ import com.api.rest.canvas2.Group.domain.Group;
 import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.Users.domain.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,12 +22,18 @@ import java.util.List;
 @Entity
 public class Assignment {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String title;
+
+    @Size(max = 250)
     private String description;
+
     private LocalDate dueDate;
+
+    @NotNull
     private Boolean isGroupWork;
 
     @ManyToOne(fetch = FetchType.LAZY)

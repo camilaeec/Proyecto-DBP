@@ -10,6 +10,8 @@ import com.api.rest.canvas2.Material.domain.Material;
 import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.ZoomMeeting.domain.ZoomMeeting;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,17 +24,32 @@ import java.util.List;
 @Setter
 @Getter
 @Entity
+@Table(name = "users")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String name;
+
+    @NotNull
+    @Column(unique = true)
     private String lastname;
+
+    @Email
+    @NotNull
+    @Column(unique = true)
     private String email;
+
+    @NotNull
     private Role role;
+
+    @NotNull
     private String password;
-    private String profilePicture;
+
+
+    private String profilePicture = "https://static.vecteezy.com/system/resources/previews/009/734/564/non_2x/default-avatar-profile-icon-of-social-media-user-vector.jpg";
 
     @ManyToMany(mappedBy = "users")
     private List<Section> sections;

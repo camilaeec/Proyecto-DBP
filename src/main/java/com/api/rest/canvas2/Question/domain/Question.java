@@ -3,6 +3,7 @@ package com.api.rest.canvas2.Question.domain;
 import com.api.rest.canvas2.Answer.domain.Answer;
 import com.api.rest.canvas2.Quiz.domain.Quiz;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,11 +18,16 @@ import java.util.List;
 @Entity
 public class Question {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String content;
+
+    @NotNull
     private Type type;
+
+    @NotNull
     private Boolean isMultipleChoice;
 
     @ManyToOne(fetch = FetchType.LAZY)

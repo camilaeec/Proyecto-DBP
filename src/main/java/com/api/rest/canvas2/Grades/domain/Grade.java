@@ -5,6 +5,8 @@ import com.api.rest.canvas2.Group.domain.Group;
 import com.api.rest.canvas2.Quiz.domain.Quiz;
 import com.api.rest.canvas2.Users.domain.User;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,7 +22,10 @@ public class Grade {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private Integer grade;
+
+    @Size(max = 250)
     private String feedback;
 
     @ManyToOne(fetch = FetchType.LAZY)

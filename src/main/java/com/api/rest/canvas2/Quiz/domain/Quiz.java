@@ -4,6 +4,8 @@ import com.api.rest.canvas2.Grades.domain.Grade;
 import com.api.rest.canvas2.Question.domain.Question;
 import com.api.rest.canvas2.Section.domain.Section;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,12 +21,19 @@ import java.util.List;
 @Entity
 public class Quiz {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @NotNull
     private String title;
+
+    @Size(min = 0, max = 200)
     private String description;
+
+    @NotNull
     private LocalDate dueDate;
+
+    @NotNull
     private Integer duration;
 
     @ManyToOne(fetch = FetchType.LAZY)

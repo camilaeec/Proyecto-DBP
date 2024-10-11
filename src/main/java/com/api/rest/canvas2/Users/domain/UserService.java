@@ -37,6 +37,12 @@ public class UserService {
         this.modelMapper = modelMapper;
     }
 
+    public UserResponseDto createUser(UserRequestDto userRequestDto) {
+        User user = modelMapper.map(userRequestDto, User.class);
+        User savedUser = userRepository.save(user);
+        return mapToResponseDto(savedUser);
+    }
+
     public UserResponseDto getUserById(Long id) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
@@ -63,7 +69,6 @@ public class UserService {
     public UserResponseDto updateUser(Long id, UserRequestDto userRequestDto) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
-
         user.setName(userRequestDto.getName());
         user.setLastname(userRequestDto.getLastname());
         user.setEmail(userRequestDto.getEmail());
@@ -90,12 +95,10 @@ public class UserService {
     }
 
     private UserResponseDto mapToResponseDto(User user) {
-        UserResponseDto userResponseDto = modelMapper.map(user, UserResponseDto.class);
-        return userResponseDto;
+        return modelMapper.map(user, UserResponseDto.class);
     }
 
     private GradeResponseDto mapToGradeDto(Grade grade) {
         return modelMapper.map(grade, GradeResponseDto.class);
     }
 }
-
