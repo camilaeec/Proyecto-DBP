@@ -1,6 +1,7 @@
 package com.api.rest.canvas2.Material.domain;
 
 import com.api.rest.canvas2.Section.domain.Section;
+import com.api.rest.canvas2.Users.domain.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,6 +14,7 @@ import lombok.Setter;
 @Getter
 @Entity
 public class Material {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -20,6 +22,10 @@ public class Material {
     private String title;
     private String description;
     private String fileUrl;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id")

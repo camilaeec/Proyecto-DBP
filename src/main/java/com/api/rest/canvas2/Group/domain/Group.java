@@ -18,6 +18,7 @@ import java.util.List;
 @Getter
 @Entity
 public class Group {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
@@ -39,7 +40,7 @@ public class Group {
     @ManyToMany(mappedBy = "groups")
     private List<Assignment> assignments;
 
-
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Grade> grades;
+
 }

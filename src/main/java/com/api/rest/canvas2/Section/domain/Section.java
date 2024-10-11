@@ -42,7 +42,7 @@ public class Section {
     private List<User> users;
 
 
-    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "sections")
     private List<Assistant> assistants;
 
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

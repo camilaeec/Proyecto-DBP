@@ -1,5 +1,8 @@
 package com.api.rest.canvas2.Section.domain;
 
+import com.api.rest.canvas2.Assistant.domain.Assistant;
+import com.api.rest.canvas2.Assistant.dto.AssistantResponseDto;
+import com.api.rest.canvas2.Assistant.infrastructure.AssistantRepository;
 import com.api.rest.canvas2.Course.domain.Course;
 import com.api.rest.canvas2.Course.infrastructure.CourseRepository;
 import com.api.rest.canvas2.Section.dto.SectionRequestDto;
@@ -21,13 +24,16 @@ public class SectionService {
     private final SectionRepository sectionRepository;
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
+    private final AssistantRepository assistantRepository;
     private final ModelMapper modelMapper;
 
     public SectionService(SectionRepository sectionRepository, CourseRepository courseRepository,
-                          UserRepository userRepository, ModelMapper modelMapper) {
+                          UserRepository userRepository, AssistantRepository assistantRepository,
+                          ModelMapper modelMapper) {
         this.sectionRepository = sectionRepository;
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
+        this.assistantRepository = assistantRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -69,13 +75,11 @@ public class SectionService {
         return modelMapper.map(updatedSection, SectionResponseDto.class);
     }
 
-
     public void deleteSection(Long sectionId) {
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Section not found with id: " + sectionId));
         sectionRepository.delete(section);
     }
-
 
     public SectionResponseDto assignUsersToSection(Long sectionId, List<Long> userIds) {
         Section section = sectionRepository.findById(sectionId)
@@ -88,7 +92,6 @@ public class SectionService {
         return modelMapper.map(updatedSection, SectionResponseDto.class);
     }
 
-
     public List<UserResponseDto> getUsersInSection(Long sectionId) {
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Section not found with id: " + sectionId));
@@ -97,5 +100,26 @@ public class SectionService {
         return users.stream()
                 .map(user -> modelMapper.map(user, UserResponseDto.class))
                 .collect(Collectors.toList());
+    }
+
+    public List<AssistantResponseDto> getAssistantsBySection(Long sectionId) {
+        Section section = sectionRepository.findById(sectionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Section not found with id: " + sectionId));
+
+        List<Assistant> assistants = section.getAssistants();
+        return assistants.stream()
+                .map(assistant -> modelMapper.map(assistant, AssistantResponseDto.class))
+                .collect(Collectors.toList());
+    }
+
+    public SectionResponseDto assignAssistantsToSection(Long sectionId, List<Long> assistantIds) {
+        Section section = sectionRepository.findById(sectionId)
+                .orElseThrow(() -> new ResourceNotFoundException("Section not found with id: " + sectionId));
+
+        List<Assistant> assistants = assistantRepository.findAllById(assistantIds);
+        section.getAssistants().addAll(assistants);
+
+        Section updatedSection = sectionRepository.save(section);
+        return modelMapper.map(updatedSection, SectionResponseDto.class);
     }
 }

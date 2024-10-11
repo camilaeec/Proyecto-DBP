@@ -2,9 +2,11 @@ package com.api.rest.canvas2.Users.domain;
 
 import com.api.rest.canvas2.Announcement.domain.Announcement;
 import com.api.rest.canvas2.Assignment.domain.Assignment;
+import com.api.rest.canvas2.Assistant.domain.Assistant;
 import com.api.rest.canvas2.Course.domain.Course;
 import com.api.rest.canvas2.Grades.domain.Grade;
 import com.api.rest.canvas2.Group.domain.Group;
+import com.api.rest.canvas2.Material.domain.Material;
 import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.ZoomMeeting.domain.ZoomMeeting;
 import jakarta.persistence.*;
@@ -49,4 +51,9 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Grade> grades;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Material> materials;
+
+
 }
