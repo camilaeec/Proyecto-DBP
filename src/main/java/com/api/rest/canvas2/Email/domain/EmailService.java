@@ -41,10 +41,8 @@ public class EmailService {
         context.setVariable("meetingDate", meetingDate.toString());
         context.setVariable("zoomLink", zoomLink);
 
-        // Procesa el HTML del correo con Thymeleaf
         String process = templateEngine.process("ZoomMeetingEmail.html", context);
 
-        // Crea y configura el mensaje
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(
                 message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
@@ -53,7 +51,6 @@ public class EmailService {
         helper.setText(process, true);
         helper.setSubject("Enlace para tu próxima clase en UTEC++");
 
-        // Enviar el correo
         mailSender.send(message);
     }
 }
