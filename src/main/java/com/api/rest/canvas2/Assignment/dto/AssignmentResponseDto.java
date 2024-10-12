@@ -12,6 +12,8 @@ public class AssignmentResponseDto {
     private String description;
     private LocalDate dueDate;
     private Boolean isGroupWork;
+    private String assignmentLink;
+    private String submissionLink;
     private String sectionName;
     private List<String> assignedUsers;
 }

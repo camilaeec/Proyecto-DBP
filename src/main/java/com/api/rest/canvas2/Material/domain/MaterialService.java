@@ -7,6 +7,7 @@ import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.Section.infrastructure.SectionRepository;
 import com.api.rest.canvas2.Users.domain.User;
 import com.api.rest.canvas2.Users.infrastructure.UserRepository;
+import com.api.rest.canvas2.auth.utils.AuthorizationUtils;
 import com.api.rest.canvas2.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -21,16 +22,23 @@ public class MaterialService {
     private final UserRepository userRepository;
     private final SectionRepository sectionRepository;
     private final ModelMapper modelMapper;
+    private final AuthorizationUtils authorizationUtils;
 
     public MaterialService(MaterialRepository materialRepository, UserRepository userRepository,
-                           SectionRepository sectionRepository, ModelMapper modelMapper) {
+                           SectionRepository sectionRepository, ModelMapper modelMapper,
+                           AuthorizationUtils authorizationUtils) {
         this.materialRepository = materialRepository;
         this.userRepository = userRepository;
         this.sectionRepository = sectionRepository;
         this.modelMapper = modelMapper;
+        this.authorizationUtils = authorizationUtils;
     }
 
     public MaterialResponseDto createMaterial(MaterialRequestDto materialRequestDto) {
+        if (!authorizationUtils.isTeacherOrAdmin()) {
+            throw new SecurityException("Only teachers or admins can create materials.");
+        }
+
         User user = userRepository.findById(materialRequestDto.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + materialRequestDto.getUserId()));
 
@@ -62,6 +70,10 @@ public class MaterialService {
         Material material = materialRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Material not found with id: " + id));
 
+        if (!authorizationUtils.isAdminOrResourceOwner(material.getUser().getId())) {
+            throw new SecurityException("You don't have permission to update this material.");
+        }
+
         material.setTitle(materialRequestDto.getTitle());
         material.setDescription(materialRequestDto.getDescription());
         material.setFileUrl(materialRequestDto.getFileUrl());
@@ -73,6 +85,11 @@ public class MaterialService {
     public void deleteMaterial(Long id) {
         Material material = materialRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Material not found with id: " + id));
+
+        if (!authorizationUtils.isAdmin()) {
+            throw new SecurityException("Only admins can delete materials.");
+        }
+
         materialRepository.delete(material);
     }
 

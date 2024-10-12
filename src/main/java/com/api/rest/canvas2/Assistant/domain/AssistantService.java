@@ -7,6 +7,7 @@ import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.Section.infrastructure.SectionRepository;
 import com.api.rest.canvas2.Users.domain.User;
 import com.api.rest.canvas2.Users.infrastructure.UserRepository;
+import com.api.rest.canvas2.auth.utils.AuthorizationUtils;
 import com.api.rest.canvas2.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -21,16 +22,23 @@ public class AssistantService {
     private final UserRepository userRepository;
     private final SectionRepository sectionRepository;
     private final ModelMapper modelMapper;
+    private final AuthorizationUtils authorizationUtils;
 
     public AssistantService(AssistantRepository assistantRepository, UserRepository userRepository,
-                            SectionRepository sectionRepository, ModelMapper modelMapper) {
+                            SectionRepository sectionRepository, ModelMapper modelMapper,
+                            AuthorizationUtils authorizationUtils) {
         this.assistantRepository = assistantRepository;
         this.userRepository = userRepository;
         this.sectionRepository = sectionRepository;
         this.modelMapper = modelMapper;
+        this.authorizationUtils = authorizationUtils;
     }
 
     public AssistantResponseDto createAssistant(AssistantRequestDto assistantRequestDto) {
+        if (!authorizationUtils.isTeacherOrAdmin()) {
+            throw new SecurityException("Only admins or teachers can create assistants.");
+        }
+
         User user = userRepository.findById(assistantRequestDto.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + assistantRequestDto.getUserId()));
 
@@ -41,8 +49,7 @@ public class AssistantService {
         assistant.setIsExternal(assistantRequestDto.getIsExternal());
         assistant.setSections(sections);
 
-        Assistant savedAssistant = assistantRepository.save(assistant);
-        return mapToResponseDto(savedAssistant);
+        return mapToResponseDto(assistantRepository.save(assistant));
     }
 
     public List<AssistantResponseDto> getAllAssistants() {
@@ -57,6 +64,10 @@ public class AssistantService {
     }
 
     public AssistantResponseDto updateAssistant(Long id, AssistantRequestDto assistantRequestDto) {
+        if (!authorizationUtils.isTeacherOrAdmin()) {
+            throw new SecurityException("Only admins or teachers can update assistants.");
+        }
+
         Assistant assistant = assistantRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Assistant not found with id: " + id));
 
@@ -69,11 +80,14 @@ public class AssistantService {
         assistant.setIsExternal(assistantRequestDto.getIsExternal());
         assistant.setSections(sections);
 
-        Assistant updatedAssistant = assistantRepository.save(assistant);
-        return mapToResponseDto(updatedAssistant);
+        return mapToResponseDto(assistantRepository.save(assistant));
     }
 
     public void deleteAssistant(Long id) {
+        if (!authorizationUtils.isAdmin()) {
+            throw new SecurityException("Only admins can delete assistants.");
+        }
+
         Assistant assistant = assistantRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Assistant not found with id: " + id));
         assistantRepository.delete(assistant);

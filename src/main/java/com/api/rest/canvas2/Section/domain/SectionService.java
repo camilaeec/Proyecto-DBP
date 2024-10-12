@@ -11,6 +11,7 @@ import com.api.rest.canvas2.Section.infrastructure.SectionRepository;
 import com.api.rest.canvas2.Users.domain.User;
 import com.api.rest.canvas2.Users.dto.UserResponseDto;
 import com.api.rest.canvas2.Users.infrastructure.UserRepository;
+import com.api.rest.canvas2.auth.utils.AuthorizationUtils;
 import com.api.rest.canvas2.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -25,19 +26,25 @@ public class SectionService {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
     private final AssistantRepository assistantRepository;
+    private final AuthorizationUtils authorizationUtils;
     private final ModelMapper modelMapper;
 
     public SectionService(SectionRepository sectionRepository, CourseRepository courseRepository,
                           UserRepository userRepository, AssistantRepository assistantRepository,
-                          ModelMapper modelMapper) {
+                          ModelMapper modelMapper, AuthorizationUtils authorizationUtils) {
         this.sectionRepository = sectionRepository;
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
         this.assistantRepository = assistantRepository;
         this.modelMapper = modelMapper;
+        this.authorizationUtils = authorizationUtils;
     }
 
     public SectionResponseDto createSection(Long courseId, SectionRequestDto sectionRequestDto) {
+        if (!authorizationUtils.isTeacherOrAdmin()) {
+            throw new SecurityException("You don't have permission to create a section.");
+        }
+
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + courseId));
 
@@ -47,7 +54,6 @@ public class SectionService {
 
         return modelMapper.map(savedSection, SectionResponseDto.class);
     }
-
     public List<SectionResponseDto> getAllSections(Long courseId) {
         Course course = courseRepository.findById(courseId)
                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + courseId));
@@ -65,6 +71,10 @@ public class SectionService {
     }
 
     public SectionResponseDto updateSection(Long sectionId, SectionRequestDto sectionRequestDto) {
+        if (!authorizationUtils.isTeacherOrAdmin()) {
+            throw new SecurityException("You don't have permission to update this section.");
+        }
+
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Section not found with id: " + sectionId));
 
@@ -75,12 +85,20 @@ public class SectionService {
     }
 
     public void deleteSection(Long sectionId) {
+        if (!authorizationUtils.isAdmin()) {
+            throw new SecurityException("You don't have permission to delete this section.");
+        }
+
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Section not found with id: " + sectionId));
         sectionRepository.delete(section);
     }
 
     public SectionResponseDto assignUsersToSection(Long sectionId, List<Long> userIds) {
+        if (!authorizationUtils.isAssistantOrTeacher()) {
+            throw new SecurityException("You don't have permission to assign users to this section.");
+        }
+
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Section not found with id: " + sectionId));
 
@@ -90,6 +108,7 @@ public class SectionService {
         Section updatedSection = sectionRepository.save(section);
         return modelMapper.map(updatedSection, SectionResponseDto.class);
     }
+
 
     public List<UserResponseDto> getUsersInSection(Long sectionId) {
         Section section = sectionRepository.findById(sectionId)
@@ -112,6 +131,10 @@ public class SectionService {
     }
 
     public SectionResponseDto assignAssistantsToSection(Long sectionId, List<Long> assistantIds) {
+        if (!authorizationUtils.isTeacher()) {
+            throw new SecurityException("You don't have permission to assign assistants to this section.");
+        }
+
         Section section = sectionRepository.findById(sectionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Section not found with id: " + sectionId));
 
@@ -121,4 +144,5 @@ public class SectionService {
         Section updatedSection = sectionRepository.save(section);
         return modelMapper.map(updatedSection, SectionResponseDto.class);
     }
+
 }

@@ -30,6 +30,9 @@ public class Question {
     @NotNull
     private Boolean isMultipleChoice;
 
+    @NotNull
+    private Integer points;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quiz_id")
     private Quiz quiz;

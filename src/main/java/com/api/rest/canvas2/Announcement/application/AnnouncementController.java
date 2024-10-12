@@ -5,6 +5,7 @@ import com.api.rest.canvas2.Announcement.dto.AnnouncementRequestDto;
 import com.api.rest.canvas2.Announcement.dto.AnnouncementResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class AnnouncementController {
         this.announcementService = announcementService;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<AnnouncementResponseDto> createAnnouncement(@RequestBody AnnouncementRequestDto announcementRequestDto) {
         AnnouncementResponseDto createdAnnouncement = announcementService.createAnnouncement(announcementRequestDto);
@@ -37,15 +39,18 @@ public class AnnouncementController {
         return ResponseEntity.ok(announcement);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')")
     @PutMapping("/{announcementId}")
     public ResponseEntity<AnnouncementResponseDto> updateAnnouncement(@PathVariable Long announcementId, @RequestBody AnnouncementRequestDto announcementRequestDto) {
         AnnouncementResponseDto updatedAnnouncement = announcementService.updateAnnouncement(announcementId, announcementRequestDto);
         return ResponseEntity.ok(updatedAnnouncement);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{announcementId}")
     public ResponseEntity<Void> deleteAnnouncement(@PathVariable Long announcementId) {
         announcementService.deleteAnnouncement(announcementId);
         return ResponseEntity.noContent().build();
     }
 }
+

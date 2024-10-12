@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface GroupRepository extends JpaRepository<Group, Long> {
     List<Group> findBySectionId(Long sectionId);
+    boolean existsByUsersIdAndAssignmentId(Long userId, Long assignmentId);
 }

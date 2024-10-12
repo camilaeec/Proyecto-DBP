@@ -1,6 +1,7 @@
 package com.api.rest.canvas2;
 
 import com.api.rest.canvas2.exceptions.ResourceNotFoundException;
+import com.api.rest.canvas2.exceptions.UserAlreadyExistsException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -15,5 +16,9 @@ public class GlobalExceptionHandler {
     public String handleResourceNotFoundException(ResourceNotFoundException ex){
         return ex.getMessage();
     }
-
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ExceptionHandler(UserAlreadyExistsException.class)
+    public String handleUserAlreadyExistException(UserAlreadyExistsException ex) {
+        return ex.getMessage();
+    }
 }

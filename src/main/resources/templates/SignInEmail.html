@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: #fff;
+            margin: 50px auto;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            color: #666;
+            font-size: 18px;
+        }
+        .logo {
+            width: 150px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/UTEC-Logo.jpg/1200px-UTEC-Logo.jpg" alt="Logo UTEC">
+    <h1>¡Bienvenido, <span id="user-name"></span>!</h1>
+    <p>Nos alegra que formes parte de nuestra comunidad.</p>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const userName = "{{name}}";
+        document.getElementById('user-name').textContent = userName;
+    });
+</script>
+</body>
+</html>

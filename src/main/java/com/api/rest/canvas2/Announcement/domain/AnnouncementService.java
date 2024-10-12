@@ -7,6 +7,7 @@ import com.api.rest.canvas2.Section.domain.Section;
 import com.api.rest.canvas2.Section.infrastructure.SectionRepository;
 import com.api.rest.canvas2.Users.domain.User;
 import com.api.rest.canvas2.Users.infrastructure.UserRepository;
+import com.api.rest.canvas2.auth.utils.AuthorizationUtils;
 import com.api.rest.canvas2.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -22,17 +23,23 @@ public class AnnouncementService {
     private final UserRepository userRepository;
     private final SectionRepository sectionRepository;
     private final ModelMapper modelMapper;
+    private final AuthorizationUtils authorizationUtils;
 
     public AnnouncementService(AnnouncementRepository announcementRepository,
                                UserRepository userRepository, SectionRepository sectionRepository,
-                               ModelMapper modelMapper) {
+                               ModelMapper modelMapper, AuthorizationUtils authorizationUtils) {
         this.announcementRepository = announcementRepository;
         this.userRepository = userRepository;
         this.sectionRepository = sectionRepository;
         this.modelMapper = modelMapper;
+        this.authorizationUtils = authorizationUtils;
     }
 
     public AnnouncementResponseDto createAnnouncement(AnnouncementRequestDto announcementRequestDto) {
+        if (!authorizationUtils.isTeacherOrAdmin()) {
+            throw new SecurityException("Only teachers or admins can create announcements.");
+        }
+
         User user = userRepository.findById(announcementRequestDto.getUserId())
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + announcementRequestDto.getUserId()));
 
@@ -64,6 +71,10 @@ public class AnnouncementService {
     }
 
     public AnnouncementResponseDto updateAnnouncement(Long announcementId, AnnouncementRequestDto announcementRequestDto) {
+        if (!authorizationUtils.isAdminOrResourceOwner(announcementId)) {
+            throw new SecurityException("Only the owner or admins can update this announcement.");
+        }
+
         Announcement announcement = announcementRepository.findById(announcementId)
                 .orElseThrow(() -> new ResourceNotFoundException("Announcement not found with id: " + announcementId));
 
@@ -75,6 +86,10 @@ public class AnnouncementService {
     }
 
     public void deleteAnnouncement(Long announcementId) {
+        if (!authorizationUtils.isAdmin()) {
+            throw new SecurityException("Only admins can delete announcements.");
+        }
+
         Announcement announcement = announcementRepository.findById(announcementId)
                 .orElseThrow(() -> new ResourceNotFoundException("Announcement not found with id: " + announcementId));
         announcementRepository.delete(announcement);

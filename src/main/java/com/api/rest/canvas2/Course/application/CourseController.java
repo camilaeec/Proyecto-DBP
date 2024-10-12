@@ -6,6 +6,7 @@ import com.api.rest.canvas2.Course.dto.CourseResponseDto;
 import com.api.rest.canvas2.Users.dto.UserResponseDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,13 +21,13 @@ public class CourseController {
         this.courseService = courseService;
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<CourseResponseDto> createCourse(@RequestBody CourseRequestDto courseRequestDto) {
         CourseResponseDto createdCourse = courseService.createCourse(courseRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCourse);
     }
-    
+
     @GetMapping
     public ResponseEntity<List<CourseResponseDto>> getAllCourses() {
         List<CourseResponseDto> courses = courseService.getAllCourses();
@@ -45,19 +46,22 @@ public class CourseController {
         return ResponseEntity.ok(course);
     }
 
-
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<CourseResponseDto> updateCourse(@PathVariable Long id, @RequestBody CourseRequestDto courseRequestDto) {
+    public ResponseEntity<CourseResponseDto> updateCourse(
+            @PathVariable Long id, @RequestBody CourseRequestDto courseRequestDto) {
         CourseResponseDto updatedCourse = courseService.updateCourse(id, courseRequestDto);
         return ResponseEntity.ok(updatedCourse);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCourse(@PathVariable Long id) {
         courseService.deleteCourse(id);
         return ResponseEntity.noContent().build();
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')")
     @GetMapping("/{courseId}/users")
     public ResponseEntity<List<UserResponseDto>> getUsersInCourse(@PathVariable Long courseId) {
         List<UserResponseDto> users = courseService.getUsersInCourse(courseId);

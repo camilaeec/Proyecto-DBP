@@ -36,6 +36,9 @@ public class Quiz {
     @NotNull
     private Integer duration;
 
+    @NotNull
+    private Integer totalPoints;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "section_id")
     private Section section;

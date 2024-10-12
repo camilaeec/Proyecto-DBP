@@ -14,4 +14,5 @@ public class QuizRequestDto {
     private Integer duration;
     private Long sectionId;
     private List<QuestionDto> questions;
+    private Integer totalPoints;
 }

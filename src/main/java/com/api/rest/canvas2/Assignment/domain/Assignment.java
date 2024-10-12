@@ -40,6 +40,10 @@ public class Assignment {
     @JoinColumn(name = "section_id")
     private Section section;
 
+    private String assignmentLink;
+
+    private String submissionLink;
+
     @ManyToMany
     @JoinTable(
             name = "assignment_user",

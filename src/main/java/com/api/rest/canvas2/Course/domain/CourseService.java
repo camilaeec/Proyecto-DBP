@@ -7,6 +7,7 @@ import com.api.rest.canvas2.Section.dto.SectionDto;
 import com.api.rest.canvas2.Users.domain.User;
 import com.api.rest.canvas2.Users.dto.UserResponseDto;
 import com.api.rest.canvas2.Users.infrastructure.UserRepository;
+import com.api.rest.canvas2.auth.utils.AuthorizationUtils;
 import com.api.rest.canvas2.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -20,14 +21,21 @@ public class CourseService {
     private final CourseRepository courseRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+    private final AuthorizationUtils authorizationUtils;
 
-    public CourseService(CourseRepository courseRepository, UserRepository userRepository, ModelMapper modelMapper) {
+    public CourseService(CourseRepository courseRepository, UserRepository userRepository,
+                         ModelMapper modelMapper, AuthorizationUtils authorizationUtils) {
         this.courseRepository = courseRepository;
         this.userRepository = userRepository;
         this.modelMapper = modelMapper;
+        this.authorizationUtils = authorizationUtils;
     }
 
     public CourseResponseDto createCourse(CourseRequestDto courseRequestDto) {
+        if (!authorizationUtils.isAdmin()) {
+            throw new SecurityException("Only Admins can create courses.");
+        }
+
         Course course = modelMapper.map(courseRequestDto, Course.class);
         Course savedCourse = courseRepository.save(course);
         return modelMapper.map(savedCourse, CourseResponseDto.class);
@@ -53,18 +61,24 @@ public class CourseService {
     }
 
     public CourseResponseDto updateCourse(Long id, CourseRequestDto courseRequestDto) {
+        if (!authorizationUtils.isAdmin()) {
+            throw new SecurityException("Only teachers or admins can update courses.");
+        }
+
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
 
         course.setName(courseRequestDto.getName());
         course.setDescription(courseRequestDto.getDescription());
 
-        Course updatedCourse = courseRepository.save(course);
-        return modelMapper.map(updatedCourse, CourseResponseDto.class);
+        return modelMapper.map(courseRepository.save(course), CourseResponseDto.class);
     }
 
-
     public void deleteCourse(Long id) {
+        if (!authorizationUtils.isAdmin()) {
+            throw new SecurityException("Only admins can delete courses.");
+        }
+
         Course course = courseRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Course not found with id: " + id));
         courseRepository.delete(course);

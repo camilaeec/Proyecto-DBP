@@ -4,6 +4,7 @@ import com.api.rest.canvas2.Answer.dto.AnswerDto;
 import com.api.rest.canvas2.Answer.infrastructure.AnswerRepository;
 import com.api.rest.canvas2.Question.domain.Question;
 import com.api.rest.canvas2.Question.infrastructure.QuestionRepository;
+import com.api.rest.canvas2.auth.utils.AuthorizationUtils;
 import com.api.rest.canvas2.exceptions.ResourceNotFoundException;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -17,14 +18,21 @@ public class AnswerService {
     private final AnswerRepository answerRepository;
     private final QuestionRepository questionRepository;
     private final ModelMapper modelMapper;
+    private final AuthorizationUtils authorizationUtils;
 
-    public AnswerService(AnswerRepository answerRepository, QuestionRepository questionRepository, ModelMapper modelMapper) {
+    public AnswerService(AnswerRepository answerRepository, QuestionRepository questionRepository,
+                         ModelMapper modelMapper, AuthorizationUtils authorizationUtils) {
         this.answerRepository = answerRepository;
         this.questionRepository = questionRepository;
         this.modelMapper = modelMapper;
+        this.authorizationUtils = authorizationUtils;
     }
 
     public AnswerDto createAnswer(Long questionId, AnswerDto answerDto) {
+        if (!authorizationUtils.isTeacherOrAdmin()) {
+            throw new SecurityException("Only teachers or admins can create answers.");
+        }
+
         Question question = questionRepository.findById(questionId)
                 .orElseThrow(() -> new ResourceNotFoundException("Question not found with id: " + questionId));
 
@@ -51,6 +59,10 @@ public class AnswerService {
     }
 
     public AnswerDto updateAnswer(Long answerId, AnswerDto answerDto) {
+        if (!authorizationUtils.isTeacherOrAdmin()) {
+            throw new SecurityException("Only teachers or admins can update answers.");
+        }
+
         Answer answer = answerRepository.findById(answerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Answer not found with id: " + answerId));
 
@@ -62,6 +74,10 @@ public class AnswerService {
     }
 
     public void deleteAnswer(Long answerId) {
+        if (!authorizationUtils.isAdmin()) {
+            throw new SecurityException("Only admins can delete answers.");
+        }
+
         Answer answer = answerRepository.findById(answerId)
                 .orElseThrow(() -> new ResourceNotFoundException("Answer not found with id: " + answerId));
         answerRepository.delete(answer);

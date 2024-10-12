@@ -11,6 +11,12 @@ public class AssignmentRequestDto {
     private String description;
     private LocalDate dueDate;
     private Boolean isGroupWork;
+
     private Long sectionId;
-    private List<Long> assignedUserIds;
+    private Integer numberOfGroups;
+    private Integer maxGroupSize;
+
+    private String assignmentLink;
+
+    private String submissionLink;
 }

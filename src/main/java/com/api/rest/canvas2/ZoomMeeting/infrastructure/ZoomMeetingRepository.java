@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ZoomRepository extends JpaRepository<ZoomMeeting, Long> {
+public interface ZoomMeetingRepository extends JpaRepository<ZoomMeeting, Long> {
 }

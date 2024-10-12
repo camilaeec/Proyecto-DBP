@@ -4,6 +4,7 @@ import com.api.rest.canvas2.Answer.domain.AnswerService;
 import com.api.rest.canvas2.Answer.dto.AnswerDto;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class AnswerController {
         this.answerService = answerService;
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')")
     @PostMapping
     public ResponseEntity<AnswerDto> createAnswer(@PathVariable Long questionId, @RequestBody AnswerDto answerDto) {
         AnswerDto createdAnswer = answerService.createAnswer(questionId, answerDto);
@@ -36,15 +38,18 @@ public class AnswerController {
         return ResponseEntity.ok(answer);
     }
 
+    @PreAuthorize("hasAnyRole('ROLE_TEACHER', 'ROLE_ADMIN')")
     @PutMapping("/{answerId}")
     public ResponseEntity<AnswerDto> updateAnswer(@PathVariable Long answerId, @RequestBody AnswerDto answerDto) {
         AnswerDto updatedAnswer = answerService.updateAnswer(answerId, answerDto);
         return ResponseEntity.ok(updatedAnswer);
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("/{answerId}")
     public ResponseEntity<Void> deleteAnswer(@PathVariable Long answerId) {
         answerService.deleteAnswer(answerId);
         return ResponseEntity.noContent().build();
     }
 }
+

@@ -41,10 +41,13 @@ public class Group {
     @JoinColumn(name = "section_id")
     private Section section;
 
-    @ManyToMany(mappedBy = "groups")
-    private List<Assignment> assignments;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "assignment_id")
+    private Assignment assignment;
 
     @OneToMany(mappedBy = "group", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Grade> grades;
 
+    private int maxSize;
 }
+
