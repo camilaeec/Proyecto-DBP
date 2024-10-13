@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
-                        .requestMatchers("/zoom/**").hasAnyRole("ADMIN", "TEACHER")
+                        .requestMatchers("/whereby/**").authenticated()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/teacher/**").hasRole("TEACHER")
                         .requestMatchers("/assistant/**").hasRole("ASSISTANT")
@@ -49,10 +49,10 @@ public class SecurityConfig {
     static RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
         hierarchy.setHierarchy("""
-            ROLE_ADMIN > ROLE_TEACHER
-            ROLE_TEACHER > ROLE_ASSISTANT
-            ROLE_ASSISTANT > ROLE_STUDENT
-        """);
+        ROLE_ADMIN > ROLE_TEACHER
+        ROLE_TEACHER > ROLE_ASSISTANT
+        ROLE_ASSISTANT > ROLE_STUDENT
+    """);
         return hierarchy;
     }
 

@@ -37,24 +37,27 @@ public class EmailService {
 
         mailSender.send(message);
     }
-
     @Async
-    public void correoZoomMeeting(String to, String courseName, LocalDateTime meetingDate, String zoomLink) throws MessagingException {
+    public void sendMeetingNotification(String to, String sectionName, String roomUrl) {
         Context context = new Context();
-        context.setVariable("courseName", courseName);
-        context.setVariable("meetingDate", meetingDate.toString());
-        context.setVariable("zoomLink", zoomLink);
+        context.setVariable("sectionName", sectionName);
+        context.setVariable("roomUrl", roomUrl);
 
-        String process = templateEngine.process("ZoomMeetingEmail.html", context);
+        String process = templateEngine.process("MeetingEmail.html", context);
 
-        MimeMessage message = mailSender.createMimeMessage();
-        MimeMessageHelper helper = new MimeMessageHelper(
-                message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name());
+        try {
+            MimeMessage message = mailSender.createMimeMessage();
+            MimeMessageHelper helper = new MimeMessageHelper(
+                    message, MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED, StandardCharsets.UTF_8.name()
+            );
 
-        helper.setTo(to);
-        helper.setText(process, true);
-        helper.setSubject("Enlace para tu próxima clase en UTEC++");
+            helper.setTo(to);
+            helper.setText(process, true);
+            helper.setSubject("Nueva Reunión de Clase");
 
-        mailSender.send(message);
+            mailSender.send(message);
+        } catch (MessagingException e) {
+            throw new RuntimeException("Error al enviar el correo: " + e.getMessage());
+        }
     }
 }

@@ -8,7 +8,6 @@ import com.api.rest.canvas2.Group.domain.Group;
 import com.api.rest.canvas2.Material.domain.Material;
 import com.api.rest.canvas2.Quiz.domain.Quiz;
 import com.api.rest.canvas2.Users.domain.User;
-import com.api.rest.canvas2.ZoomMeeting.domain.ZoomMeeting;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -59,9 +58,6 @@ public class Section {
 
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Announcement> announcements;
-
-    @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ZoomMeeting> zoomMeetings;
 
     @OneToMany(mappedBy = "section", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Group> groups;

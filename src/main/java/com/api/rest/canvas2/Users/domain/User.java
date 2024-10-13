@@ -7,8 +7,7 @@ import com.api.rest.canvas2.Course.domain.Course;
 import com.api.rest.canvas2.Grades.domain.Grade;
 import com.api.rest.canvas2.Group.domain.Group;
 import com.api.rest.canvas2.Material.domain.Material;
-import com.api.rest.canvas2.Section.domain.Section;
-import com.api.rest.canvas2.ZoomMeeting.domain.ZoomMeeting;
+import com.api.rest.canvas2.Section.domain.Section;;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -46,7 +45,7 @@ public class User implements UserDetails {
     @Email
     @NotNull
     @Column(unique = true)
-    //@Pattern(regexp = "^[a-zA-Z]+\\.[a-zA-Z]+@utec\\.edu\\.pe$", message = "Email must be from the utec.edu.pe domain")
+    @Pattern(regexp = "^[a-zA-Z]+\\.[a-zA-Z]+@utec\\.edu\\.pe$", message = "Email must be from the utec.edu.pe domain")
     private String email;
 
     @NotNull
@@ -68,9 +67,6 @@ public class User implements UserDetails {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Announcement> announcements;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ZoomMeeting> zoomMeetings;
 
     @ManyToMany(mappedBy = "users")
     private List<Group> groups;
