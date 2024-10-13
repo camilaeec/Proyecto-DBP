@@ -158,7 +158,7 @@ Ventajas de la Programación Asíncrona:
 ## Conclusión
 
 ### Logros del Proyecto
-- El proyecto UTEC++ ha alcanzado varios hitos importantes, destacando la creación de una plataforma robusta y funcional que facilita la gestión integral de tareas, evaluaciones, y materiales educativos. Además, se incorporaron foros de discusión, proporcionando un espacio colaborativo para estudiantes y profesores, lo cual optimiza la interacción dentro del ámbito académico.
+- El proyecto UTEC++ facilita la gestión integral de tareas, evaluaciones, y materiales educativos. Además, se incorporaron foros de discusión, proporcionando un espacio colaborativo para estudiantes y profesores, lo cual optimiza la interacción dentro del ámbito académico.
 
 - Otro aspecto clave es la implementación de medidas de seguridad avanzadas, como la autenticación basada en JWT y la gestión de permisos según los roles de usuario (estudiantes, docentes, y administradores). Estas medidas aseguran que la información sensible de los usuarios esté protegida, garantizando la integridad de los datos y la prevención de vulnerabilidades comunes en entornos web.
   
