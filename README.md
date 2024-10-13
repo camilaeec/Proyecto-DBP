@@ -135,13 +135,6 @@ El sistema de mensajería y notificaciones de UTEC++ se basa en eventos asíncro
 
 - *SignInEvent y SignInEventListener:* Durante el proceso de registro de un nuevo usuario en la plataforma, se dispara un evento llamado SignInEvent que contiene la información clave del nuevo usuario, como su email, nombre y apellido. Este evento es capturado por el SignInEventListener, que de manera asíncrona envía un correo electrónico de bienvenida al nuevo usuario. El uso de eventos permite que el sistema continúe con otras operaciones sin esperar que se complete el envío del correo, mejorando así la eficiencia y experiencia del usuario.
 - *WherebyMeetingEvent y WherebyMeetingEventListener:* En los casos en que se crea una reunión en la plataforma (como una sesión de mentoría o clase), se dispara un evento llamado WherebyMeetingEvent. Este evento contiene la información de la sesión, como el nombre de la sección, el enlace de la sala de reunión y el correo electrónico del destinatario. El WherebyMeetingEventListener procesa este evento de manera asíncrona y envía una notificación por correo electrónico al usuario invitado con el enlace para unirse a la reunión.
-
-Ventajas de la Programación Asíncrona:
-
-- *Mejora de Rendimiento:* Los eventos se manejan de manera asíncrona, lo que permite al sistema realizar otras tareas sin necesidad de esperar a que se completen acciones como el envío de correos electrónicos o notificaciones, mejorando el rendimiento y la capacidad de respuesta de la plataforma.
-
-- *Desacoplamiento:* La lógica relacionada con el registro de usuarios o la creación de reuniones está desacoplada del proceso de notificación, lo que facilita el mantenimiento y la extensión de la funcionalidad sin afectar al flujo principal de las aplicaciones.
-
 ---
 
 ## GitHub (explicar más)
@@ -159,7 +152,6 @@ Ventajas de la Programación Asíncrona:
 
 ### Logros del Proyecto
 - El proyecto UTEC++ facilita la gestión integral de tareas, evaluaciones, y materiales educativos. Además, se incorporaron foros de discusión, proporcionando un espacio colaborativo para estudiantes y profesores, lo cual optimiza la interacción dentro del ámbito académico.
-
 - Otro aspecto clave es la implementación de medidas de seguridad avanzadas, como la autenticación basada en JWT y la gestión de permisos según los roles de usuario (estudiantes, docentes, y administradores). Estas medidas aseguran que la información sensible de los usuarios esté protegida, garantizando la integridad de los datos y la prevención de vulnerabilidades comunes en entornos web.
   
 ### Aprendizajes Clave
@@ -167,7 +159,7 @@ Ventajas de la Programación Asíncrona:
 - *Seguridad en aplicaciones web:* Se mejoró significativamente la capacidad de implementar técnicas de seguridad como el cifrado de contraseñas, la protección contra inyecciones SQL, y el uso de autenticación mediante tokens JWT, asegurando un acceso controlado a la plataforma.
 - *Eventos y asincronías:* El uso de eventos asíncronos para notificaciones y la gestión de eventos del sistema permitió mejorar la escalabilidad y el rendimiento del sistema, con una arquitectura que asegura que procesos como el envío de correos electrónicos no bloqueen el flujo principal de la aplicación.
 
-### Trabajo Futuro (revisar)
+### Trabajo Futuro
 - Implementación en el Frontend: Además, está previsto mejorar el frontend de la plataforma con funcionalidades adicionales que mejoren la interacción y la experiencia de usuario. Entre estas, se contempla implementar notificaciones en tiempo real, facilitar la navegación entre secciones, y mejorar la accesibilidad y el diseño responsivo, para que los usuarios puedan acceder cómodamente desde dispositivos móviles.
 
 ---
