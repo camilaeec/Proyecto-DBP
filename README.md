@@ -88,114 +88,114 @@ Es esencial contar con una plataforma personalizada que cubra las necesidades es
 
 ---
 
-*ENDPOINTS:*
+## ENDPOINTS
 
 *Usuario*
-	GET /usuarios: Obtener la lista de todos los usuarios.
-	GET /usuarios/{id}: Obtener información de un usuario específico.
-	POST /usuarios: Crear un nuevo usuario (registro).
-	PUT /usuarios/{id}: Actualizar información de un usuario específico.
-	DELETE /usuarios/{id}: Eliminar un usuario.
-	Autenticación y roles:
-	POST /usuarios/login: Autenticar un usuario (login).
-	POST /usuarios/logout: Cerrar sesión del usuario.
-	GET /usuarios/rol/{rol}: Obtener una lista de usuarios con un rol específico (Alumno, Profesor, Asesor).
+-GET /usuarios: Obtener la lista de todos los usuarios.
+-GET /usuarios/{id}: Obtener información de un usuario específico.
+-POST /usuarios: Crear un nuevo usuario (registro).
+-PUT /usuarios/{id}: Actualizar información de un usuario específico.
+-DELETE /usuarios/{id}: Eliminar un usuario.
+-Autenticación y roles:
+-POST /usuarios/login: Autenticar un usuario (login).
+-POST /usuarios/logout: Cerrar sesión del usuario.
+-GET /usuarios/rol/{rol}: Obtener una lista de usuarios con un rol específico (Alumno, Profesor, Asesor).
 
 *Alumno*
-	GET /alumnos: Obtener la lista de todos los alumnos.
-	GET /alumnos/{id}: Obtener la información de un alumno específico.
-	POST /alumnos: Crear un nuevo alumno (al registrarse como estudiante).
-	PUT /alumnos/{id}: Actualizar la información de un alumno.
-	DELETE /alumnos/{id}: Eliminar un alumno.
-	GET /alumnos/{id}/cursos: Obtener los cursos inscritos por un alumno específico.
-	GET /alumnos/{id}/asesorias: Obtener las asesorías recibidas por un alumno.
+-GET /alumnos: Obtener la lista de todos los alumnos.
+-GET /alumnos/{id}: Obtener la información de un alumno específico.
+-POST /alumnos: Crear un nuevo alumno (al registrarse como estudiante).
+-PUT /alumnos/{id}: Actualizar la información de un alumno.
+-DELETE /alumnos/{id}: Eliminar un alumno.
+-GET /alumnos/{id}/cursos: Obtener los cursos inscritos por un alumno específico.
+-GET /alumnos/{id}/asesorias: Obtener las asesorías recibidas por un alumno.
 
 *Profesor*
-	GET /profesores: Obtener la lista de todos los profesores.
-	GET /profesores/{id}: Obtener información de un profesor específico.
-	POST /profesores: Crear un nuevo profesor.
-	PUT /profesores/{id}: Actualizar la información de un profesor.
-	DELETE /profesores/{id}: Eliminar un profesor.
-	GET /profesores/{id}/cursos: Obtener la lista de cursos que imparte un profesor.
+-GET /profesores: Obtener la lista de todos los profesores.
+-GET /profesores/{id}: Obtener información de un profesor específico.
+-POST /profesores: Crear un nuevo profesor.
+-PUT /profesores/{id}: Actualizar la información de un profesor.
+-DELETE /profesores/{id}: Eliminar un profesor.
+-GET /profesores/{id}/cursos: Obtener la lista de cursos que imparte un profesor.
 
 *Asesor*
-	GET /asesores: Obtener la lista de todos los asesores.
-	GET /asesores/{id}: Obtener la información de un asesor específico.
-	POST /asesores: Crear un nuevo asesor.
-	PUT /asesores/{id}: Actualizar la información de un asesor.
-	DELETE /asesores/{id}: Eliminar un asesor.
-	GET /asesores/{id}/alumnos: Obtener la lista de alumnos que asesora un asesor específico.
-	GET /asesores/{id}/asesorias: Obtener las asesorías ofrecidas por un asesor.
+-GET /asesores: Obtener la lista de todos los asesores.
+-GET /asesores/{id}: Obtener la información de un asesor específico.
+-POST /asesores: Crear un nuevo asesor.
+-PUT /asesores/{id}: Actualizar la información de un asesor.
+-DELETE /asesores/{id}: Eliminar un asesor.
+-GET /asesores/{id}/alumnos: Obtener la lista de alumnos que asesora un asesor específico.
+-GET /asesores/{id}/asesorias: Obtener las asesorías ofrecidas por un asesor.
 
 *Curso*
-	GET /cursos: Obtener la lista de todos los cursos.
-	GET /cursos/{id}: Obtener información de un curso específico.
-	POST /cursos: Crear un nuevo curso.
-	PUT /cursos/{id}: Actualizar la información de un curso.
-	DELETE /cursos/{id}: Eliminar un curso.
-	GET /cursos/{id}/alumnos: Obtener los alumnos inscritos en un curso.
-	GET /cursos/{id}/profesor: Obtener el profesor que dicta el curso.
-	GET /cursos/{id}/tareas: Obtener la lista de tareas asociadas a un curso.
-	GET /cursos/{id}/materiales: Obtener los materiales didácticos asociados al curso.
-	GET /cursos/{id}/evaluaciones: Obtener la lista de evaluaciones del curso.
-	GET /cursos/{id}/asesorias: Obtener las asesorías relacionadas con un curso.
+-GET /cursos: Obtener la lista de todos los cursos.
+-GET /cursos/{id}: Obtener información de un curso específico.
+-POST /cursos: Crear un nuevo curso.
+-PUT /cursos/{id}: Actualizar la información de un curso.
+-DELETE /cursos/{id}: Eliminar un curso.
+-GET /cursos/{id}/alumnos: Obtener los alumnos inscritos en un curso.
+-GET /cursos/{id}/profesor: Obtener el profesor que dicta el curso.
+-GET /cursos/{id}/tareas: Obtener la lista de tareas asociadas a un curso.
+-GET /cursos/{id}/materiales: Obtener los materiales didácticos asociados al curso.
+-GET /cursos/{id}/evaluaciones: Obtener la lista de evaluaciones del curso.
+-GET /cursos/{id}/asesorias: Obtener las asesorías relacionadas con un curso.
 
 *Tarea*
-	GET /tareas: Obtener la lista de todas las tareas.
-	GET /tareas/{id}: Obtener la información de una tarea específica.
-	POST /tareas: Crear una nueva tarea.
-	PUT /tareas/{id}: Actualizar la información de una tarea.
-	DELETE /tareas/{id}: Eliminar una tarea.
-	GET /tareas/{id}/entregas: Obtener las entregas realizadas por los alumnos para una tarea.
+-GET /tareas: Obtener la lista de todas las tareas.
+-GET /tareas/{id}: Obtener la información de una tarea específica.
+-POST /tareas: Crear una nueva tarea.
+-PUT /tareas/{id}: Actualizar la información de una tarea.
+-DELETE /tareas/{id}: Eliminar una tarea.
+-GET /tareas/{id}/entregas: Obtener las entregas realizadas por los alumnos para una tarea.
 
 *Entrega*
-	GET /entregas: Obtener la lista de todas las entregas.
-	GET /entregas/{id}: Obtener la información de una entrega específica.
-	POST /entregas: Crear una nueva entrega para una tarea.
-	PUT /entregas/{id}: Actualizar la información de una entrega (por ejemplo, agregar feedback o nota).
-	DELETE /entregas/{id}: Eliminar una entrega.
+-GET /entregas: Obtener la lista de todas las entregas.
+-GET /entregas/{id}: Obtener la información de una entrega específica.
+-POST /entregas: Crear una nueva entrega para una tarea.
+-PUT /entregas/{id}: Actualizar la información de una entrega (por ejemplo, agregar feedback o nota).
+-DELETE /entregas/{id}: Eliminar una entrega.
 
 *Material*
-	GET /materiales: Obtener la lista de todos los materiales.
-	GET /materiales/{id}: Obtener información de un material específico.
-	POST /materiales: Crear un nuevo material para un curso.
-	PUT /materiales/{id}: Actualizar la información de un material.
-	DELETE /materiales/{id}: Eliminar un material.
+-GET /materiales: Obtener la lista de todos los materiales.
+-GET /materiales/{id}: Obtener información de un material específico.
+-POST /materiales: Crear un nuevo material para un curso.
+-PUT /materiales/{id}: Actualizar la información de un material.
+-DELETE /materiales/{id}: Eliminar un material.
 
 *Evaluación*
-	GET /evaluaciones: Obtener la lista de todas las evaluaciones.
-	GET /evaluaciones/{id}: Obtener la información de una evaluación específica.
-	POST /evaluaciones: Crear una nueva evaluación para un curso.
-	PUT /evaluaciones/{id}: Actualizar la información de una evaluación.
-	DELETE /evaluaciones/{id}: Eliminar una evaluación.
-	GET /evaluaciones/{id}/notas: Obtener las calificaciones obtenidas en una evaluación.
+-GET /evaluaciones: Obtener la lista de todas las evaluaciones.
+-GET /evaluaciones/{id}: Obtener la información de una evaluación específica.
+-POST /evaluaciones: Crear una nueva evaluación para un curso.
+-PUT /evaluaciones/{id}: Actualizar la información de una evaluación.
+-DELETE /evaluaciones/{id}: Eliminar una evaluación.
+-GET /evaluaciones/{id}/notas: Obtener las calificaciones obtenidas en una evaluación.
 
 *Notas*
-	GET /notas: Obtener la lista de todas las calificaciones.
-	GET /notas/{id}: Obtener la información de una calificación específica.
-	POST /notas: Registrar una nueva calificación para un alumno.
-	PUT /notas/{id}: Actualizar una calificación existente.
-	DELETE /notas/{id}: Eliminar una calificación.
+-GET /notas: Obtener la lista de todas las calificaciones.
+-GET /notas/{id}: Obtener la información de una calificación específica.
+-POST /notas: Registrar una nueva calificación para un alumno.
+-PUT /notas/{id}: Actualizar una calificación existente.
+-DELETE /notas/{id}: Eliminar una calificación.
 
 *Asesoría*
-	GET /asesorias: Obtener la lista de todas las asesorías.
-	GET /asesorias/{id}: Obtener la información de una asesoría específica.
-	POST /asesorias: Programar una nueva asesoría.
-	PUT /asesorias/{id}: Actualizar la información de una asesoría.
-	DELETE /asesorias/{id}: Eliminar una asesoría.
+-GET /asesorias: Obtener la lista de todas las asesorías.
+-GET /asesorias/{id}: Obtener la información de una asesoría específica.
+-POST /asesorias: Programar una nueva asesoría.
+-PUT /asesorias/{id}: Actualizar la información de una asesoría.
+-DELETE /asesorias/{id}: Eliminar una asesoría.
  
 *Anuncios*
-	GET /anuncios: Obtener la lista de todos los anuncios.
-	GET /anuncios/{id}: Obtener la información de un anuncio específico.
-	POST /anuncios: Crear un nuevo anuncio para un curso.
-	PUT /anuncios/{id}: Actualizar la información de un anuncio.
-	DELETE /anuncios/{id}: Eliminar un anuncio.
+-GET /anuncios: Obtener la lista de todos los anuncios.
+-GET /anuncios/{id}: Obtener la información de un anuncio específico.
+-POST /anuncios: Crear un nuevo anuncio para un curso.
+-PUT /anuncios/{id}: Actualizar la información de un anuncio.
+-DELETE /anuncios/{id}: Eliminar un anuncio.
  
 *Chat y Grupos*
-	GET /chats: Obtener la lista de todos los chats o grupos de discusión.
-	GET /chats/{id}: Obtener información de un chat específico.
-	POST /chats: Crear un nuevo chat o grupo de discusión.
-	DELETE /chats/{id}: Eliminar un chat o grupo.
+-GET /chats: Obtener la lista de todos los chats o grupos de discusión.
+-GET /chats/{id}: Obtener información de un chat específico.
+-POST /chats: Crear un nuevo chat o grupo de discusión.
+-DELETE /chats/{id}: Eliminar un chat o grupo.
 
 ---
  
