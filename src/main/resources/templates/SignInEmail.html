@@ -36,15 +36,9 @@
 <body>
 <div class="container">
     <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/UTEC-Logo.jpg/1200px-UTEC-Logo.jpg" alt="Logo UTEC">
-    <h1>¡Bienvenido, <span id="user-name"></span>!</h1>
-    <p>Nos alegra que formes parte de nuestra comunidad.</p>
+    <h1>¡Bienvenido <span th:text="${name}"></span>, <span th:text="${lastname}"></span> </h1>
+    <p>Nos alegra que formes parte de nuestra comunidad UTEC++.</p>
 </div>
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const userName = "{{name}}";
-        document.getElementById('user-name').textContent = userName;
-    });
-</script>
 </body>
 </html>

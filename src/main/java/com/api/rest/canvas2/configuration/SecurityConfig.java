@@ -11,34 +11,36 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 
 
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity(securedEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig {
+
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .cors(Customizer.withDefaults())
-                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
+                .sessionManagement(manager -> manager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .authorizeHttpRequests(auth ->
-                        auth
-                                .requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/admin/**").hasRole("ADMIN")
-                                .requestMatchers("/teacher/**").hasRole("TEACHER")
-                                .requestMatchers("/assistant/**").hasRole("ASSISTANT")
-                                .anyRequest().authenticated()
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/auth/**").permitAll()
+                        .requestMatchers("/zoom/**").hasAnyRole("ADMIN", "TEACHER")
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/teacher/**").hasRole("TEACHER")
+                        .requestMatchers("/assistant/**").hasRole("ASSISTANT")
+                        .anyRequest().authenticated()
                 )
                 .build();
     }
@@ -47,10 +49,10 @@ public class SecurityConfig {
     static RoleHierarchy roleHierarchy() {
         RoleHierarchyImpl hierarchy = new RoleHierarchyImpl();
         hierarchy.setHierarchy("""
-        ROLE_ADMIN > ROLE_TEACHER
-        ROLE_TEACHER > ROLE_ASSISTANT
-        ROLE_ASSISTANT > ROLE_STUDENT
-    """);
+            ROLE_ADMIN > ROLE_TEACHER
+            ROLE_TEACHER > ROLE_ASSISTANT
+            ROLE_ASSISTANT > ROLE_STUDENT
+        """);
         return hierarchy;
     }
 
@@ -58,7 +60,6 @@ public class SecurityConfig {
     static MethodSecurityExpressionHandler methodSecurityExpressionHandler(RoleHierarchy roleHierarchy) {
         DefaultMethodSecurityExpressionHandler expressionHandler = new DefaultMethodSecurityExpressionHandler();
         expressionHandler.setRoleHierarchy(roleHierarchy);
-        expressionHandler.setDefaultRolePrefix("ROLE_");
         return expressionHandler;
     }
 
@@ -66,13 +67,13 @@ public class SecurityConfig {
     public WebMvcConfigurer corsMappingConfigurer() {
         return new WebMvcConfigurer() {
             @Override
-            public void addCorsMappings(org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
+            public void addCorsMappings(CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("*")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "HEAD", "PATCH")
-                        .maxAge(3600)
                         .allowedHeaders("*")
-                        .allowCredentials(false);
+                        .allowCredentials(false)
+                        .maxAge(3600);
             }
         };
     }

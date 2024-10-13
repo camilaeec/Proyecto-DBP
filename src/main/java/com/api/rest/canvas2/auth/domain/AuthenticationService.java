@@ -44,7 +44,9 @@ public class AuthenticationService {
             throw new UserAlreadyExistsException("Email already exists");
         }
 
-        applicationEventPublisher.publishEvent(new SignInEvent(this, signinDto.getEmail(), signinDto.getName()));
+        applicationEventPublisher.publishEvent(
+                new SignInEvent(this, signinDto.getEmail(), signinDto.getName(), signinDto.getLastname())
+        );
 
         User user = new User();
         user.setEmail(signinDto.getEmail());

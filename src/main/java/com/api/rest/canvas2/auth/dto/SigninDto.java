@@ -8,6 +8,5 @@ public class SigninDto {
     private String password;
     private String name;
     private String lastname;
-
-    private String role = "STUDENT";
+    private String role;
 }

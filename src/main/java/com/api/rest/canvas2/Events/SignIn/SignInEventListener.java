@@ -19,7 +19,7 @@ public class SignInEventListener {
     @Async
     public void handleSignInEvent(SignInEvent event) {
         try {
-            emailService.correoSignIn(event.getEmail(), event.getName());
+            emailService.correoSignIn(event.getEmail(), event.getName(), event.getLastname());
         } catch (MessagingException e) {
             System.err.println("Failed to send email: " + e.getMessage());
         }

@@ -4,6 +4,7 @@ import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.spring6.SpringTemplateEngine;
 import jakarta.mail.MessagingException;
@@ -18,9 +19,11 @@ public class EmailService {
     private final JavaMailSender mailSender;
     private final SpringTemplateEngine templateEngine;
 
-    public void correoSignIn(String to, String name) throws MessagingException {
+    @Async
+    public void correoSignIn(String to, String name, String lastname) throws MessagingException {
         Context context = new Context();
         context.setVariable("name", name);
+        context.setVariable("lastname", lastname);
 
         String process = templateEngine.process("SignInEmail.html", context);
 
@@ -35,6 +38,7 @@ public class EmailService {
         mailSender.send(message);
     }
 
+    @Async
     public void correoZoomMeeting(String to, String courseName, LocalDateTime meetingDate, String zoomLink) throws MessagingException {
         Context context = new Context();
         context.setVariable("courseName", courseName);

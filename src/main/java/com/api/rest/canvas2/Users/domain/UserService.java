@@ -138,6 +138,14 @@ public class UserService {
         return modelMapper.map(grade, GradeResponseDto.class);
     }
 
+    public UserResponseDto updateUserRole(Long userId, String role) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + userId));
+        user.setRole(Role.valueOf(role.toUpperCase()));
+        User updatedUser = userRepository.save(user);
+        return modelMapper.map(updatedUser, UserResponseDto.class);
+    }
+
     @Bean(name = "UserDetailsService")
     public UserDetailsService userDetailsService(){
         return username -> {
@@ -147,6 +155,8 @@ public class UserService {
     }
 
     public User findByEmail(String email){
-        return userRepository.findByEmail(email).orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+        return user;
     }
 }

@@ -24,6 +24,8 @@ public class ZoomMeeting {
     private String zoomLink;
     private LocalDateTime scheduledDate;
 
+    private int type;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;

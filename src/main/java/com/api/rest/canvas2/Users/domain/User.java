@@ -13,6 +13,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -45,7 +46,7 @@ public class User implements UserDetails {
     @Email
     @NotNull
     @Column(unique = true)
-    @Pattern(regexp = "^[a-zA-Z]+\\.[a-zA-Z]+@utec\\.edu\\.pe$", message = "Email must be from the utec.edu.pe domain")
+    //@Pattern(regexp = "^[a-zA-Z]+\\.[a-zA-Z]+@utec\\.edu\\.pe$", message = "Email must be from the utec.edu.pe domain")
     private String email;
 
     @NotNull
@@ -53,6 +54,7 @@ public class User implements UserDetails {
     private Role role;
 
     @NotNull
+    @Size(min = 3)
     private String password;
 
 

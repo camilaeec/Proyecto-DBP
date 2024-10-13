@@ -8,6 +8,7 @@ import com.api.rest.canvas2.Section.infrastructure.SectionRepository;
 import com.api.rest.canvas2.Users.domain.User;
 import com.api.rest.canvas2.Users.infrastructure.UserRepository;
 import com.api.rest.canvas2.ZoomMeeting.infrastructure.ZoomMeetingRepository;
+import com.api.rest.canvas2.auth.utils.AuthorizationUtils;
 import com.api.rest.canvas2.exceptions.ResourceNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
@@ -32,16 +33,20 @@ public class ZoomService {
     private final SectionRepository sectionRepository;
     private final AnnouncementRepository announcementRepository;
     private final RestTemplate restTemplate;
-
+    private final AuthorizationUtils authorizationUtils;
     private final ApplicationEventPublisher eventPublisher;
 
+    @Value("${zoom.meeting.url}")
+    private String zoomMeetingUrl;
 
-    private final String ZOOM_API_URL = "https://api.zoom.us/v2/users/me/meetings";
-
-    @Value("${zoom.access.token}")
-    private String ZOOM_ACCESS_TOKEN;
+    @Value("${zoom.access_token}")
+    private String zoomAccessToken;
 
     public ZoomMeeting createZoomMeeting(String topic, LocalDateTime startTime, int duration, Long userId, Long sectionId) {
+        if (!authorizationUtils.isTeacherOrAdmin()) {
+            throw new SecurityException("No tienes permiso para crear esta reunión.");
+        }
+
         JSONObject json = new JSONObject();
         json.put("topic", topic);
         json.put("type", 2);
@@ -50,11 +55,11 @@ public class ZoomService {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(ZOOM_ACCESS_TOKEN);
+        headers.setBearerAuth(zoomAccessToken); // Access Token
 
         HttpEntity<String> request = new HttpEntity<>(json.toString(), headers);
 
-        ResponseEntity<String> response = restTemplate.postForEntity(ZOOM_API_URL, request, String.class);
+        ResponseEntity<String> response = restTemplate.postForEntity(zoomMeetingUrl, request, String.class);
 
         if (!response.getStatusCode().is2xxSuccessful()) {
             throw new RuntimeException("Failed to create Zoom meeting: " + response.getBody());
@@ -73,9 +78,11 @@ public class ZoomService {
         zoomMeeting.setScheduledDate(startTime);
         zoomMeeting.setUser(user);
         zoomMeeting.setSection(section);
+
         ZoomMeeting savedMeeting = zoomMeetingRepository.save(zoomMeeting);
 
         createAnnouncementForZoomMeeting(savedMeeting);
+        createAndNotifyZoomMeeting(section.getType(), startTime, zoomLink, user.getEmail());
 
         return savedMeeting;
     }
@@ -88,7 +95,6 @@ public class ZoomService {
         announcement.setSection(zoomMeeting.getSection());
         announcementRepository.save(announcement);
     }
-
 
     public void createAndNotifyZoomMeeting(String courseName, LocalDateTime meetingDate, String zoomLink, String recipientEmail) {
         ZoomMeetingEvent event = new ZoomMeetingEvent(this, courseName, meetingDate, zoomLink, recipientEmail);
