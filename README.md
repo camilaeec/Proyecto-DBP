@@ -61,7 +61,7 @@ Es esencial contar con una plataforma personalizada que cubra las necesidades es
 - *Lenguajes:* JavaScript, HTML
 - *Frameworks:* React
 - *Bases de Datos:* PostgreSQL
-- *AWS* Amazon Web Services
+- *AWS:* Amazon Web Services
 
 ---
 
@@ -216,7 +216,7 @@ Es esencial contar con una plataforma personalizada que cubra las necesidades es
  
 ## Testing y Manejo de Errores 
 
-### Niveles de Testing Realizados (falta)
+### Niveles de Testing Realizados 
 - *Pruebas Unitarias:* Validación de las funciones principales de gestión de evaluaciones y mensajería. 
 - *Pruebas de Integración:* Aseguramiento de la correcta interacción entre los módulos de notas y foros.
 
