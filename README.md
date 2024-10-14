@@ -68,7 +68,7 @@ Es esencial contar con una plataforma personalizada que cubra las necesidades es
 ## Modelo de Entidades
 
 ### Diagrama de Entidades
-![Diagrama de Entidades](nombre de la foto) Aún falta completar el diagrama
+[![UTEC-diagrama.png](https://i.postimg.cc/zD9CjXp8/UTEC-diagrama.png)](https://postimg.cc/yWy36Kwb)
 
 ### Descripción de Entidades
 - *Usuario:* Esta es una entidad central que almacena la información básica de los usuarios del sistema, ya sean estudiantes, profesores o asesores. Los atributos clave incluyen id_usuario, nombre_usuario, correo, contraseña, y rol, que permite identificar si el usuario es un Profesor, Alumno, o Asesor. Los usuarios también tienen un campo de relación hacia sus roles específicos. Además, se gestiona la autenticación del usuario mediante la combinación de correo y contraseña, y su acceso al sistema está determinado por el rol asignado.
