@@ -219,9 +219,6 @@ Es esencial contar con una plataforma personalizada que cubra las necesidades es
 - **Pruebas de Servicio, Controlador y Repositorio:** Se realizaron pruebas en las entidades clave de la plataforma, como **Announcement**, **Answer**, **Assignment**, **User**, **Course**, **Section**, y **Quiz**. Estas pruebas garantizaron el correcto funcionamiento de los servicios, controladores y la persistencia en la base de datos.
 - **TestContainers:** Se utilizó TestContainers para pruebas de persistencia en la base de datos, asegurando que las operaciones CRUD se ejecuten correctamente en un entorno de prueba aislado.
 
-### Resultados
-- No se encontraron problemas críticos durante las pruebas y, por tanto, no se realizaron correcciones específicas. Las pruebas se centraron en validar el funcionamiento esperado de los componentes probados.
-
 ### Manejo de Errores
 El manejo de errores en la plataforma UTEC++ se realiza utilizando un controlador de excepciones global basado en Spring Boot, el cual intercepta las excepciones más comunes para devolver respuestas apropiadas al cliente.
 
