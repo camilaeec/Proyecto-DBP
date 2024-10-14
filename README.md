@@ -66,7 +66,7 @@ Es esencial contar con una plataforma personalizada que cubra las necesidades es
 
 ---
 
-## Modelo de Entidades (falta ordenar el draw.io)
+## Modelo de Entidades
 
 ### Diagrama de Entidades
 ![Diagrama de Entidades](nombre de la foto) Aún falta completar el diagrama
@@ -221,7 +221,7 @@ Es esencial contar con una plataforma personalizada que cubra las necesidades es
 - *Pruebas Unitarias:* Validación de las funciones principales de gestión de evaluaciones y mensajería. 
 - *Pruebas de Integración:* Aseguramiento de la correcta interacción entre los módulos de notas y foros.
 
-### Resultados (falta)
+### Resultados
 - Se corrigieron problemas de sincronización en las evaluaciones y errores en la interfaz de los foros.
 
 ### Manejo de Errores
@@ -265,7 +265,7 @@ El sistema de mensajería y notificaciones de UTEC++ se basa en eventos asíncro
 - *WherebyMeetingEvent y WherebyMeetingEventListener:* En los casos en que se crea una reunión en la plataforma (como una sesión de mentoría o clase), se dispara un evento llamado WherebyMeetingEvent. Este evento contiene la información de la sesión, como el nombre de la sección, el enlace de la sala de reunión y el correo electrónico del destinatario. El WherebyMeetingEventListener procesa este evento de manera asíncrona y envía una notificación por correo electrónico al usuario invitado con el enlace para unirse a la reunión.
 ---
 
-## GitHub (explicar más)
+## GitHub
 
 ### Uso de GitHub Projects
 - Se crearon issues por cada funcionalidad y corrección de errores.
