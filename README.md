@@ -87,127 +87,128 @@ Es esencial contar con una plataforma personalizada que cubra las necesidades es
 
 ## ENDPOINTS
 
-### Usuario
+### Announcement
 
-- **GET** /usuarios: Obtener la lista de todos los usuarios.
-- **GET** /usuarios/{id}: Obtener información de un usuario específico.
-- **POST** /usuarios: Crear un nuevo usuario (registro).
-- **PUT** /usuarios/{id}: Actualizar información de un usuario específico.
-- **DELETE** /usuarios/{id}: Eliminar un usuario.
-  
-### Autenticación y Roles
+- **POST** /announcements: Crear un nuevo anuncio (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **GET** /announcements/section/{sectionId}: Obtener la lista de anuncios por sección.
+- **GET** /announcements/{announcementId}: Obtener la información de un anuncio específico.
+- **PUT** /announcements/{announcementId}: Actualizar la información de un anuncio (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **DELETE** /announcements/{announcementId}: Eliminar un anuncio (solo rol ROLE_ADMIN).
 
-- **POST** /usuarios/login: Autenticar un usuario (login).
-- **POST** /usuarios/logout: Cerrar sesión del usuario.
-- **GET** /usuarios/rol/{rol}: Obtener una lista de usuarios con un rol específico (Alumno, Profesor, Asesor).
+### Answer
 
-### Alumno
+- **POST** /questions/{questionId}/answers: Crear una nueva respuesta para una pregunta (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **GET** /questions/{questionId}/answers: Obtener la lista de respuestas de una pregunta específica.
+- **GET** /questions/{questionId}/answers/{answerId}: Obtener la información de una respuesta específica.
+- **PUT** /questions/{questionId}/answers/{answerId}: Actualizar la información de una respuesta (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **DELETE** /questions/{questionId}/answers/{answerId}: Eliminar una respuesta (solo rol ROLE_ADMIN).
 
-- **GET** /alumnos: Obtener la lista de todos los alumnos.
-- **GET** /alumnos/{id}: Obtener la información de un alumno específico.
-- **POST** /alumnos: Crear un nuevo alumno (al registrarse como estudiante).
-- **PUT** /alumnos/{id}: Actualizar la información de un alumno.
-- **DELETE** /alumnos/{id}: Eliminar un alumno.
-- **GET** /alumnos/{id}/cursos: Obtener los cursos inscritos por un alumno específico.
-- **GET** /alumnos/{id}/asesorias: Obtener las asesorías recibidas por un alumno.
+### Assignment
 
-### Profesor
+- **POST** /sections/{sectionId}/assignments: Crear una nueva tarea para una sección (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **GET** /sections/{sectionId}/assignments: Obtener la lista de tareas de una sección específica.
+- **GET** /sections/{sectionId}/assignments/{assignmentId}: Obtener la información de una tarea específica.
+- **PUT** /sections/{sectionId}/assignments/{assignmentId}: Actualizar la información de una tarea (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **DELETE** /sections/{sectionId}/assignments/{assignmentId}: Eliminar una tarea (solo rol ROLE_ADMIN).
+- **PUT** /sections/{sectionId}/assignments/{assignmentId}/submit: Enviar una tarea (solo rol ROLE_STUDENT).
 
-- **GET** /profesores: Obtener la lista de todos los profesores.
-- **GET** /profesores/{id}: Obtener información de un profesor específico.
-- **POST** /profesores: Crear un nuevo profesor.
-- **PUT** /profesores/{id}: Actualizar la información de un profesor.
-- **DELETE** /profesores/{id}: Eliminar un profesor.
-- **GET** /profesores/{id}/cursos: Obtener la lista de cursos que imparte un profesor.
+### Assistant
 
-### Asesor
+- **POST** /assistants: Crear un nuevo asistente (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **GET** /assistants: Obtener la lista de todos los asistentes (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **GET** /assistants/{id}: Obtener la información de un asistente específico (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **PUT** /assistants/{id}: Actualizar la información de un asistente (solo roles ROLE_TEACHER o ROLE_ADMIN).
+- **DELETE** /assistants/{id}: Eliminar un asistente (solo rol ROLE_ADMIN).
 
-- **GET** /asesores: Obtener la lista de todos los asesores.
-- **GET** /asesores/{id}: Obtener la información de un asesor específico.
-- **POST** /asesores: Crear un nuevo asesor.
-- **PUT** /asesores/{id}: Actualizar la información de un asesor.
-- **DELETE** /asesores/{id}: Eliminar un asesor.
-- **GET** /asesores/{id}/alumnos: Obtener la lista de alumnos que asesora un asesor específico.
-- **GET** /asesores/{id}/asesorias: Obtener las asesorías ofrecidas por un asesor.
+### Authentication
 
-### Curso
+- **POST** /auth/login: Iniciar sesión con las credenciales del usuario.
+- **POST** /auth/signin: Registrar un nuevo usuario.
+- **POST** /auth/verify-password: Verificar la validez de la contraseña de un usuario específico.
 
-- **GET** /cursos: Obtener la lista de todos los cursos.
-- **GET** /cursos/{id}: Obtener información de un curso específico.
-- **POST** /cursos: Crear un nuevo curso.
-- **PUT** /cursos/{id}: Actualizar la información de un curso.
-- **DELETE** /cursos/{id}: Eliminar un curso.
-- **GET** /cursos/{id}/alumnos: Obtener los alumnos inscritos en un curso.
-- **GET** /cursos/{id}/profesor: Obtener el profesor que dicta el curso.
-- **GET** /cursos/{id}/tareas: Obtener la lista de tareas asociadas a un curso.
-- **GET** /cursos/{id}/materiales: Obtener los materiales didácticos asociados al curso.
-- **GET** /cursos/{id}/evaluaciones: Obtener la lista de evaluaciones del curso.
-- **GET** /cursos/{id}/asesorias: Obtener las asesorías relacionadas con un curso.
+### Course
 
-### Tarea
+- **POST** /courses: Crear un nuevo curso.
+- **GET** /courses: Obtener la lista de todos los cursos.
+- **GET** /courses/{id}: Obtener la información de un curso específico por su ID.
+- **GET** /courses/name/{name}: Obtener la información de un curso específico por su nombre.
+- **PUT** /courses/{id}: Actualizar la información de un curso específico por su ID.
+- **DELETE** /courses/{id}: Eliminar un curso específico por su ID.
+- **GET** /courses/{courseId}/users: Obtener la lista de usuarios inscritos en un curso específico.
 
-- **GET** /tareas: Obtener la lista de todas las tareas.
-- **GET** /tareas/{id}: Obtener la información de una tarea específica.
-- **POST** /tareas: Crear una nueva tarea.
-- **PUT** /tareas/{id}: Actualizar la información de una tarea.
-- **DELETE** /tareas/{id}: Eliminar una tarea.
-- **GET** /tareas/{id}/entregas: Obtener las entregas realizadas por los alumnos para una tarea.
+### Grades
 
-### Entrega
+- **POST** /grades: Crear una nueva calificación.
+- **GET** /grades/user/{userId}: Obtener la lista de calificaciones de un usuario específico, opcionalmente filtrando por ID de asignación o ID de cuestionario.
+- **GET** /grades/{gradeId}: Obtener la información de una calificación específica por su ID.
+- **PUT** /grades/{gradeId}: Actualizar la información de una calificación específica por su ID.
+- **DELETE** /grades/{gradeId}: Eliminar una calificación específica por su ID.
 
-- **GET** /entregas: Obtener la lista de todas las entregas.
-- **GET** /entregas/{id}: Obtener la información de una entrega específica.
-- **POST** /entregas: Crear una nueva entrega para una tarea.
-- **PUT** /entregas/{id}: Actualizar la información de una entrega (por ejemplo, agregar feedback o nota).
-- **DELETE** /entregas/{id}: Eliminar una entrega.
+### Groups
 
-### Material
+- **POST** /groups: Crear un nuevo grupo.
+- **GET** /groups/section/{sectionId}: Obtener la lista de grupos por ID de sección.
+- **GET** /groups/{groupId}: Obtener la información de un grupo específico por su ID.
+- **PUT** /groups/{groupId}: Actualizar la información de un grupo específico por su ID.
+- **DELETE** /groups/{groupId}: Eliminar un grupo específico por su ID.
+- **POST** /groups/{groupId}/join: Unirse a un grupo específico por su ID.
+- **POST** /groups/{groupId}/leave: Salir de un grupo específico por su ID.
 
-- **GET** /materiales: Obtener la lista de todos los materiales.
-- **GET** /materiales/{id}: Obtener información de un material específico.
-- **POST** /materiales: Crear un nuevo material para un curso.
-- **PUT** /materiales/{id}: Actualizar la información de un material.
-- **DELETE** /materiales/{id}: Eliminar un material.
+### Materials
 
-### Evaluación
+- **POST** /materials: Crear un nuevo material.
+- **GET** /materials/section/{sectionId}: Obtener la lista de materiales por ID de sección.
+- **GET** /materials/user/{userId}: Obtener la lista de materiales por ID de usuario.
+- **PUT** /materials/{id}: Actualizar la información de un material específico por su ID.
+- **DELETE** /materials/{id}: Eliminar un material específico por su ID.
 
-- **GET** /evaluaciones: Obtener la lista de todas las evaluaciones.
-- **GET** /evaluaciones/{id}: Obtener la información de una evaluación específica.
-- **POST** /evaluaciones: Crear una nueva evaluación para un curso.
-- **PUT** /evaluaciones/{id}: Actualizar la información de una evaluación.
-- **DELETE** /evaluaciones/{id}: Eliminar una evaluación.
-- **GET** /evaluaciones/{id}/notas: Obtener las calificaciones obtenidas en una evaluación.
+### Questions
 
-### Notas
+- **POST** /quizzes/{quizId}/questions: Crear una nueva pregunta para un cuestionario específico.
+- **GET** /quizzes/{quizId}/questions: Obtener la lista de preguntas por ID de cuestionario.
+- **GET** /quizzes/{quizId}/questions/{questionId}: Obtener una pregunta específica por su ID.
+- **PUT** /quizzes/{quizId}/questions/{questionId}: Actualizar la información de una pregunta específica por su ID.
+- **DELETE** /quizzes/{quizId}/questions/{questionId}: Eliminar una pregunta específica por su ID.
 
-- **GET** /notas: Obtener la lista de todas las calificaciones.
-- **GET** /notas/{id}: Obtener la información de una calificación específica.
-- **POST** /notas: Registrar una nueva calificación para un alumno.
-- **PUT** /notas/{id}: Actualizar una calificación existente.
-- **DELETE** /notas/{id}: Eliminar una calificación.
+### Quizzes
 
-### Asesoría
+- **POST** /sections/{sectionId}/quizzes: Crear un nuevo cuestionario asociado a una sección específica.
+- **GET** /sections/{sectionId}/quizzes: Obtener la lista de cuestionarios por ID de sección.
+- **GET** /sections/{sectionId}/quizzes/{quizId}: Obtener un cuestionario específico por su ID.
+- **PUT** /sections/{sectionId}/quizzes/{quizId}: Actualizar la información de un cuestionario específico por su ID.
+- **DELETE** /sections/{sectionId}/quizzes/{quizId}: Eliminar un cuestionario específico por su ID.
+- **POST** /sections/{sectionId}/quizzes/{quizId}/grade: Calificar un cuestionario basado en las respuestas del usuario.
 
-- **GET** /asesorias: Obtener la lista de todas las asesorías.
-- **GET** /asesorias/{id}: Obtener la información de una asesoría específica.
-- **POST** /asesorias: Programar una nueva asesoría.
-- **PUT** /asesorias/{id}: Actualizar la información de una asesoría.
-- **DELETE** /asesorias/{id}: Eliminar una asesoría.
+### Secciones
 
-### Anuncios
+- **POST** /courses/{courseId}/sections: Crear una nueva sección asociada a un curso específico.
+- **GET** /courses/{courseId}/sections: Obtener la lista de secciones por ID de curso.
+- **GET** /courses/{courseId}/sections/{sectionId}: Obtener una sección específica por su ID.
+- **PUT** /courses/{courseId}/sections/{sectionId}: Actualizar la información de una sección específica por su ID.
+- **DELETE** /courses/{courseId}/sections/{sectionId}: Eliminar una sección específica por su ID.
+- **POST** /courses/{courseId}/sections/{sectionId}/users: Asignar usuarios a una sección específica.
+- **GET** /courses/{courseId}/sections/{sectionId}/users: Obtener la lista de usuarios en una sección específica.
+- **POST** /courses/{courseId}/sections/{sectionId}/assistants: Asignar asistentes a una sección específica.
+- **GET** /courses/{courseId}/sections/{sectionId}/assistants: Obtener la lista de asistentes en una sección específica.
 
-- **GET** /anuncios: Obtener la lista de todos los anuncios.
-- **GET** /anuncios/{id}: Obtener la información de un anuncio específico.
-- **POST** /anuncios: Crear un nuevo anuncio para un curso.
-- **PUT** /anuncios/{id}: Actualizar la información de un anuncio.
-- **DELETE** /anuncios/{id}: Eliminar un anuncio.
+### Usuarios
 
-### Chat y Grupos
+- **GET** /users/me: Obtener información del usuario autenticado.
+- **GET** /users/{id}: Obtener información de un usuario específico por su ID.
+- **PUT** /users/{userId}/role: Actualizar el rol de un usuario específico.
+- **GET** /users/name/{name}: Obtener información de un usuario específico por su nombre.
+- **GET** /users: Obtener la lista de todos los usuarios.
+- **PUT** /users/{id}: Actualizar la información de un usuario específico por su ID.
+- **DELETE** /users/{id}: Eliminar un usuario específico por su ID.
 
-- **GET** /chats: Obtener la lista de todos los chats o grupos de discusión.
-- **GET** /chats/{id}: Obtener información de un chat específico.
-- **POST** /chats: Crear un nuevo chat o grupo de discusión.
-- **DELETE** /chats/{id}: Eliminar un chat o grupo.
+### Whereby
+
+- **POST** /whereby/meetings: Crear una nueva reunión.
+  - **Parámetros**:
+    - `roomName`: Nombre de la sala.
+    - `duration`: Duración de la reunión (en minutos).
+    - `userId`: ID del usuario que crea la reunión.
+    - `sectionId`: ID de la sección asociada a la reunión.
 
 ---
 
