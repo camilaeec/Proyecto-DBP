@@ -61,7 +61,6 @@ Es esencial contar con una plataforma personalizada que cubra las necesidades es
 - *Lenguajes:* JavaScript, HTML
 - *Frameworks:* React
 - *Bases de Datos:* PostgreSQL
-- *APIs externas:* Google Authentication
 - *AWS* Amazon Web Services
 
 ---
