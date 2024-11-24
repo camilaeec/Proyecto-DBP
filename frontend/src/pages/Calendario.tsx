@@ -7,23 +7,23 @@ import { addDays, format } from "date-fns"
 import { es } from "date-fns/locale"
 import { Bell, Calendar as CalendarIcon, ChevronLeft, ChevronRight, Menu, Home, BookOpen, Users2, Inbox, LogOut } from "lucide-react"
 
-import { Button } from "@/components/ui/button"
-import { Calendar } from "@/components/ui/calendar"
+import { Button } from "../components/ui/button"
+import { Calendar } from "../components/ui/calendar"
 import {
     Card,
     CardContent,
     CardDescription,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "../components/ui/card"
 import {
     Popover,
     PopoverContent,
     PopoverTrigger,
-} from "@/components/ui/popover"
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { ScrollArea } from "@/components/ui/scroll-area"
+} from "../components/ui/popover"
+import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet"
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
+import { ScrollArea } from "../components/ui/scroll-area"
 
 export default function CalendarPage() {
     const [date, setDate] = React.useState<Date>(new Date())
@@ -57,7 +57,7 @@ export default function CalendarPage() {
                                         width={32}
                                         height={32}
                                     />
-                                    <span className="ml-2 text-lg font-bold">Sistema Académico</span>
+                                    <span className="ml-2 text-lg font-bold">UTEC++</span>
                                 </div>
                             </div>
                             <ScrollArea className="h-[calc(100vh-4rem)]">

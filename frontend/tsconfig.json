@@ -6,9 +6,14 @@
   ],
   "compilerOptions": {
     "baseUrl": ".",
+    "jsx": "react-jsx", //
+    "lib": ["ES2022", "DOM"], //
+    "module": "ESNext", //
+    "moduleResolution": "node", //
+    "target": "ESNext", //
     "paths": {
-      "@/components/*": ["./components/*"]
+      "@/*": ["./src/*"],
+      "@/lib/*": ["./src/lib/*"]
     }
   }
-
 }

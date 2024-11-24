@@ -1,10 +1,11 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Bell, Calendar, ChevronDown, FileText, Home, LogOut, Menu, Users2, BookOpen, Clock, Plus } from 'lucide-react'
+import { Bell, Calendar, FileText, Home, LogOut, Menu, Users2, BookOpen, Clock, Plus } from 'lucide-react'
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "../components/ui/button"
+import { Card, CardContent } from "../components/ui/card"
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
+import React from "react"
 
 export default function Component() {
     return (
