@@ -1,24 +1,23 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Bell, Calendar, Home, BookOpen, Users2, Inbox, LogOut, Menu } from 'lucide-react'
+import * as React from "react";
+import { Link } from "react-router-dom";
+import { Bell, Calendar, Home, BookOpen, Users2, Inbox, LogOut, Menu } from "lucide-react";
 
-import { Button } from "../components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card"
-import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet"
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
-import { ScrollArea } from "../components/ui/scroll-area"
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "../components/ui/card";
+import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { ScrollArea } from "../components/ui/scroll-area";
 
 export default function GradesPage() {
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = React.useState(false);
 
     const grades = [
         { id: 1, name: "EC1", description: "Evaluación continua", score: "20 / 20" },
         { id: 2, name: "EC2", description: "Evaluación continua", score: "18 / 20" },
         { id: 3, name: "Práctica 1", description: "Práctica de laboratorio", score: "15 / 20" },
-    ]
+    ];
 
     return (
         <div className="min-h-screen bg-white">
@@ -34,7 +33,7 @@ export default function GradesPage() {
                         <SheetContent side="left" className="w-[300px] p-0 bg-[#323232] text-white border-r-0">
                             <div className="border-b border-[#424242]">
                                 <div className="flex h-16 items-center px-6">
-                                    <Image
+                                    <img
                                         src="/placeholder.svg"
                                         alt="UTEC Logo"
                                         className="h-8 w-8"
@@ -59,7 +58,7 @@ export default function GradesPage() {
                                     <nav className="flex flex-col gap-2">
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-[#424242]"
-                                            href="#"
+                                            to="/"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Home className="h-5 w-5" />
@@ -67,7 +66,7 @@ export default function GradesPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-[#424242]"
-                                            href="#"
+                                            to="/courses"
                                             onClick={() => setOpen(false)}
                                         >
                                             <BookOpen className="h-5 w-5" />
@@ -75,7 +74,7 @@ export default function GradesPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-[#424242]"
-                                            href="#"
+                                            to="/calendar"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Calendar className="h-5 w-5" />
@@ -83,7 +82,7 @@ export default function GradesPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-[#424242]"
-                                            href="#"
+                                            to="/groups"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Users2 className="h-5 w-5" />
@@ -91,7 +90,7 @@ export default function GradesPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-[#424242]"
-                                            href="#"
+                                            to="/inbox"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Inbox className="h-5 w-5" />
@@ -99,7 +98,7 @@ export default function GradesPage() {
                                         </Link>
                                         <Link
                                             className="mt-auto flex items-center gap-2 rounded-lg px-4 py-2 text-white hover:bg-[#424242]"
-                                            href="#"
+                                            to="/logout"
                                             onClick={() => setOpen(false)}
                                         >
                                             <LogOut className="h-5 w-5" />
@@ -147,5 +146,5 @@ export default function GradesPage() {
                 </Card>
             </main>
         </div>
-    )
+    );
 }

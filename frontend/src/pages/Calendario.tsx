@@ -1,8 +1,7 @@
 "use client"
 
 import * as React from "react"
-import Link from "next/link"
-import Image from "next/image"
+import { Link } from "react-router-dom";
 import { addDays, format } from "date-fns"
 import { es } from "date-fns/locale"
 import { Bell, Calendar as CalendarIcon, ChevronLeft, ChevronRight, Menu, Home, BookOpen, Users2, Inbox, LogOut } from "lucide-react"
@@ -24,6 +23,7 @@ import {
 import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet"
 import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
 import { ScrollArea } from "../components/ui/scroll-area"
+
 
 export default function CalendarPage() {
     const [date, setDate] = React.useState<Date>(new Date())
@@ -50,8 +50,8 @@ export default function CalendarPage() {
                         <SheetContent side="left" className="w-[300px] p-0">
                             <div className="border-b">
                                 <div className="flex h-16 items-center px-6">
-                                    <Image
-                                        src="/placeholder.svg"
+                                    <img
+                                        src="../assets/utec-logo.png"
                                         alt="UTEC Logo"
                                         className="h-8 w-8"
                                         width={32}
@@ -75,7 +75,7 @@ export default function CalendarPage() {
                                     <nav className="flex flex-col gap-2">
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Home className="h-5 w-5" />
@@ -83,7 +83,7 @@ export default function CalendarPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/"
                                             onClick={() => setOpen(false)}
                                         >
                                             <BookOpen className="h-5 w-5" />
@@ -91,7 +91,7 @@ export default function CalendarPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-900"
-                                            href="#"
+                                            to="/"
                                             onClick={() => setOpen(false)}
                                         >
                                             <CalendarIcon className="h-5 w-5" />
@@ -99,7 +99,7 @@ export default function CalendarPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Users2 className="h-5 w-5" />
@@ -107,7 +107,7 @@ export default function CalendarPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Inbox className="h-5 w-5" />
@@ -115,7 +115,7 @@ export default function CalendarPage() {
                                         </Link>
                                         <Link
                                             className="mt-auto flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/"
                                             onClick={() => setOpen(false)}
                                         >
                                             <LogOut className="h-5 w-5" />

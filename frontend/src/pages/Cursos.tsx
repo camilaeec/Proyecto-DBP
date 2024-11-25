@@ -1,24 +1,23 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import Link from "next/link"
-import Image from "next/image"
-import { Bell, Calendar, Home, BookOpen, Users2, Inbox, LogOut, Menu, MoreVertical } from 'lucide-react'
+import * as React from "react";
+import { Link } from "react-router-dom";
+import { Bell, Calendar, Home, BookOpen, Users2, Inbox, LogOut, Menu, MoreVertical } from "lucide-react";
 
-import { Button } from "../components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../components/ui/card"
-import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet"
-import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar"
-import { ScrollArea } from "../components/ui/scroll-area"
+import { Button } from "../components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "../components/ui/card";
+import { Sheet, SheetContent, SheetTrigger } from "../components/ui/sheet";
+import { Avatar, AvatarFallback, AvatarImage } from "../components/ui/avatar";
+import { ScrollArea } from "../components/ui/scroll-area";
 import {
     DropdownMenu,
     DropdownMenuContent,
     DropdownMenuItem,
     DropdownMenuTrigger,
-} from "../components/ui/dropdown-menu"
+} from "../components/ui/dropdown-menu";
 
 export default function CoursesPage() {
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = React.useState(false);
 
     // Ejemplo de cursos (en una aplicación real, estos vendrían de una API o base de datos)
     const courses = [
@@ -26,9 +25,9 @@ export default function CoursesPage() {
         { id: 2, name: "Desarrollo Basado en Plataformas", code: "CS2031", profesor: "Ing. Carlos Rodríguez", averageGrade: 14.2 },
         { id: 3, name: "Empresa y Consumidor", code: "GI2101", profesor: "Lic. María López", averageGrade: 16.8 },
         { id: 4, name: "Arte y Tecnología", code: "HH3101", profesor: "Mg. Pedro Sánchez", averageGrade: 17.5 },
-        { id: 5, name: "Competencias Digitales", code: "CD2024", professor: "Ing. Laura Martínez", averageGrade: 15.7 },
-        { id: 6, name: "Comunicación Pre UTEC", code: "CP2221", professor: "Lic. Jorge Ramírez", averageGrade: 16.3 },
-    ]
+        { id: 5, name: "Competencias Digitales", code: "CD2024", profesor: "Ing. Laura Martínez", averageGrade: 15.7 },
+        { id: 6, name: "Comunicación Pre UTEC", code: "CP2221", profesor: "Lic. Jorge Ramírez", averageGrade: 16.3 },
+    ];
 
     return (
         <div className="min-h-screen bg-gray-100">
@@ -44,8 +43,8 @@ export default function CoursesPage() {
                         <SheetContent side="left" className="w-[300px] p-0">
                             <div className="border-b">
                                 <div className="flex h-16 items-center px-6">
-                                    <Image
-                                        src="/placeholder.svg"
+                                    <img
+                                        src="../assets/utec-logo.png"
                                         alt="UTEC Logo"
                                         className="h-8 w-8"
                                         width={32}
@@ -69,7 +68,7 @@ export default function CoursesPage() {
                                     <nav className="flex flex-col gap-2">
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Home className="h-5 w-5" />
@@ -77,7 +76,7 @@ export default function CoursesPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg bg-gray-100 px-4 py-2 text-gray-900"
-                                            href="#"
+                                            to="/courses"
                                             onClick={() => setOpen(false)}
                                         >
                                             <BookOpen className="h-5 w-5" />
@@ -85,7 +84,7 @@ export default function CoursesPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/calendar"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Calendar className="h-5 w-5" />
@@ -93,7 +92,7 @@ export default function CoursesPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/groups"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Users2 className="h-5 w-5" />
@@ -101,7 +100,7 @@ export default function CoursesPage() {
                                         </Link>
                                         <Link
                                             className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/inbox"
                                             onClick={() => setOpen(false)}
                                         >
                                             <Inbox className="h-5 w-5" />
@@ -109,7 +108,7 @@ export default function CoursesPage() {
                                         </Link>
                                         <Link
                                             className="mt-auto flex items-center gap-2 rounded-lg px-4 py-2 text-gray-700 hover:bg-gray-100"
-                                            href="#"
+                                            to="/logout"
                                             onClick={() => setOpen(false)}
                                         >
                                             <LogOut className="h-5 w-5" />
@@ -138,7 +137,7 @@ export default function CoursesPage() {
                                 <CardDescription>{course.code}</CardDescription>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-sm text-gray-500">Profesor: {course.professor}</p>
+                                <p className="text-sm text-gray-500">Profesor: {course.profesor}</p>
                                 <p className="mt-2 text-lg font-semibold">Promedio: {course.averageGrade.toFixed(1)}</p>
                             </CardContent>
                             <CardFooter className="flex justify-between">
@@ -161,5 +160,5 @@ export default function CoursesPage() {
                 </div>
             </main>
         </div>
-    )
+    );
 }
